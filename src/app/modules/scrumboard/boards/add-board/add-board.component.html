@@ -1,0 +1,49 @@
+<div class="flex flex-col flex-auto md:min-w-160 max-h-160 -m-6">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Create Project</div>
+        <button mat-icon-button [tabIndex]="-1" (click)="dialogRef.close()">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    <div class="max-h-160 overflow-y-auto">
+        <form>
+            <div class="flex flex-col sm:flex-row p-8">
+                <div class="flex flex-auto flex-wrap">
+                    <div class="flex flex-col w-full lg:w-full sm:pl-8">
+                        <div class="flex">
+                            <!-- Title -->
+                            <mat-form-field class="w-full pr-2">
+                                <mat-label>Title</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <!-- Content -->
+                            <mat-form-field class="w-full pr-2">
+                                <mat-label>Content</mat-label>
+                                <textarea matInput rows="4"></textarea>
+                            </mat-form-field>
+
+                        </div>
+                        <div class="flex">
+                            <!-- Description -->
+                            <mat-form-field class="w-full pr-2">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput rows="4"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="w-1/4 ">
+                                <button class="w-full" mat-flat-button [color]="'primary'">
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
