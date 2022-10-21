@@ -10,19 +10,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/home'
     },
     {
+        id: 'tasks',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:pencil',
+        link: '/tasks'
+    },
+    {
         id: 'Scrumboard',
         title: 'Scrumboard',
         subtitle: 'Scrumboard feature',
         type: 'group',
         icon: 'heroicons_outline:pencil-alt',
         children: [
-            {
-                id: 'scrumboard.example',
-                title: 'Example',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/scrumboard/example'
-            },
+
             {
                 id: 'scrumboard.sample',
                 title: 'Sample',
@@ -49,18 +50,19 @@ export const compactNavigation: FuseNavigationItem[] = [
         link: '/home'
     },
     {
-        id: 'Scrumboard',
+        id: 'tasks',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:pencil',
+        link: '/tasks'
+    },
+    {
+        id: 'scrumboard',
         title: 'Scrumboard',
         type: 'aside',
         icon: 'heroicons_outline:pencil-alt',
         children: [
-            {
-                id: 'scrumboard.example',
-                title: 'Example',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/scrumboard/example'
-            },
+
             {
                 id: 'scrumboard.sample',
                 title: 'Sample',
@@ -87,18 +89,19 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         link: '/home'
     },
     {
-        id: 'Scrumboard',
+        id: 'tasks',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:pencil',
+        link: '/tasks'
+    },
+    {
+        id: 'scrumboard',
         title: 'Scrumboard',
         type: 'aside',
         icon: 'heroicons_outline:pencil-alt',
         children: [
-            {
-                id: 'scrumboard.example',
-                title: 'Example',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/scrumboard/example'
-            },
+
             {
                 id: 'scrumboard.sample',
                 title: 'Sample',
@@ -125,18 +128,19 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         link: '/home'
     },
     {
-        id: 'Scrumboard',
+        id: 'tasks',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:pencil',
+        link: '/tasks'
+    },
+    {
+        id: 'scrumboard',
         title: 'Scrumboard',
         type: 'aside',
         icon: 'heroicons_outline:pencil-alt',
         children: [
-            {
-                id: 'scrumboard.example',
-                title: 'Example',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/scrumboard/example'
-            },
+
             {
                 id: 'scrumboard.sample',
                 title: 'Sample',

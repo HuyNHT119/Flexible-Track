@@ -61,7 +61,7 @@ export class ScrumboardBoardsComponent implements OnInit, OnDestroy {
     // -----------------------------------------------------------------------------------------------------
     showCreateBoardForm() {
         this.dialogRef.open(ScrumboardBoardsAddBoardComponent, {
-            width: '960px'
+            width: '480px'
         });
     }
     /**

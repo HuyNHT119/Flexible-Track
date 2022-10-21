@@ -92,10 +92,22 @@ export const appRoutes: Route[] = [
                 path: 'sample', loadChildren: () => import('app/modules/admin/sample/sample.module').then(m => m.SampleModule)
             },
             {
-                path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)
-            },
-            {
                 path: 'board', loadChildren: () => import('app/modules/scrumboard/scrumboard.module').then(m => m.ScrumboardModule)
+            },
+        ]
+    },
+    // Tasks routes
+    {
+        path: 'tasks',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: '', loadChildren: () => import('app/modules/tasks/tasks.module').then(m => m.TasksModule)
             },
         ]
     },
