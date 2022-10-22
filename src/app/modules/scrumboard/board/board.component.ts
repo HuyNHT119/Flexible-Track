@@ -167,7 +167,7 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
 
     showAddCardForm() {
         this.dialogRef.open(ScrumboardBoardAddCardComponent, {
-            width: '720px'
+            width: '480px'
         });
     }
 
@@ -185,7 +185,8 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
         });
 
         // Save the card
-        this._scrumboardService.createCard(card).subscribe();
+        this._scrumboardService.createCard(card).subscribe(result => {
+        });
     }
 
     /**
