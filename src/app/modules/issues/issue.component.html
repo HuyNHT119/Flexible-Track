@@ -63,8 +63,8 @@
                                 <mat-label>Project</mat-label>
                                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
                                 </mat-icon>
-                                <mat-select>
-                                    <mat-option [value]="'english'">English</mat-option>
+                                <mat-select [(value)]="projectSelected">
+                                    <mat-option [value]="'english'">None</mat-option>
                                     <mat-option [value]="'french'">French</mat-option>
                                     <mat-option [value]="'spanish'">Spanish</mat-option>
                                     <mat-option [value]="'german'">German</mat-option>
@@ -75,8 +75,8 @@
                                 <mat-label>Sprint</mat-label>
                                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
                                 </mat-icon>
-                                <mat-select>
-                                    <mat-option [value]="'english'">English</mat-option>
+                                <mat-select [(value)]="sprintSelected">
+                                    <mat-option [value]="'english'">None</mat-option>
                                     <mat-option [value]="'french'">French</mat-option>
                                     <mat-option [value]="'spanish'">Spanish</mat-option>
                                     <mat-option [value]="'german'">German</mat-option>

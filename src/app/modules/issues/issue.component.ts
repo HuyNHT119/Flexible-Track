@@ -9,6 +9,9 @@ import { IssueDetailComponent } from './detail/issue-detail.component';
 })
 
 export class IssueComponent implements OnInit {
+    sprintSelected: string = 'english';
+    projectSelected: string = 'english';
+
     constructor(
         private _dialog: MatDialog
     ) { }

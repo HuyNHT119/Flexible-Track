@@ -30,13 +30,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
     },
-    {
-        id: 'backlog',
-        title: 'Backlogs',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/backlogs'
-    },
+
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -67,13 +61,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
     },
-    {
-        id: 'backlog',
-        title: 'Backlogs',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/backlogs'
-    },
+
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
@@ -104,13 +92,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
     },
-    {
-        id: 'backlog',
-        title: 'Backlogs',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/backlogs'
-    },
+
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -141,11 +123,5 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
     },
-    {
-        id: 'backlog',
-        title: 'Backlogs',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/backlogs'
-    },
+
 ];

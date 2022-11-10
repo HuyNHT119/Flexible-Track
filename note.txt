@@ -1,0 +1,4 @@
+-tạo project phải có nút tắt bảng tạo project
+-set defaut sprint voi project la none trong dashboard 
+-detail project them chia ra 2 cột member, issue 
+

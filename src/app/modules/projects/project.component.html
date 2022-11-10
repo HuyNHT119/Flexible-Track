@@ -61,95 +61,61 @@
                 </div>
                 <div class="flex flex-col flex-auto col-span-3 bg-card shadow rounded-2xl overflow-hidden p-6">
                     <div class="flex items-start justify-between">
-                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Issues</div>
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Projects</div>
                     </div>
-                    <!-- Issues -->
+                    <!-- Projects -->
                     <div class="content mt-6">
-                        <div (click)="openProjectDetailDialog()" class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
-                        hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-2">
-                            <div class="flex flex-col">
-                                <div class="flex space-x-3">
-                                    <div class="font-medium text-green-600">Sprint Demo</div>
-                                    <div class="font-medium">Coffee Break</div>
-                                </div>
+                        <ng-container *ngIf="(projects$ | async) as projects">
+                            <ng-container *ngIf="projects.length > 0; else noProjects">
+                                <ng-container *ngFor="let project of projects; trackBy: trackByFn">
+                                    <div (click)="openProjectDetailDialog()"
+                                        class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
+                                    hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-2">
+                                        <div class="flex flex-col">
+                                            <div class="flex space-x-3">
+                                                <div class="font-medium text-green-600">{{ project.projectName }}</div>
+                                                <div class="font-medium">{{ project.projectDescription }}</div>
+                                            </div>
 
-                                <div
-                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                    <div class="flex items-center ng-star-inserted">
-                                        <div class="flex space-x-3">
-                                            <div class="ml-1.5 text-md text-secondary">10:30 AM</div>
-                                            <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
-                                                <div
-                                                    class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-blue-500 bg-gray-200 dark:text-blue-500 dark:bg-gray-700 ng-star-inserted">
-                                                    Progress </div>
+                                            <div
+                                                class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                                <div class="flex items-center ng-star-inserted">
+                                                    <div class="flex space-x-3">
+                                                        <div class="ml-1.5 text-md text-secondary">{{
+                                                            project.projectUpdate_at |
+                                                            date: 'shortTime' }}</div>
+                                                        <!-- <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
+                                                            <div
+                                                                class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-blue-500 bg-gray-200 dark:text-blue-500 dark:bg-gray-700 ng-star-inserted">
+                                                                Progress </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="items-center justify-center ">
-                                <div
-                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                    <!-- Low -->
-                                    <mat-icon class="icon-size-4 text-green-600 dark:text-green-400"
-                                        [svgIcon]="'heroicons_solid:arrow-narrow-down'" [title]="'Low'">
-                                    </mat-icon>
-                                    <!-- High -->
-                                    <!-- <mat-icon class="icon-size-4 text-red-600 dark:text-red-400"
-                                                                        *ngIf="task.priority === 2"
-                                                                        [svgIcon]="'heroicons_solid:arrow-narrow-up'" [title]="'High'">
-                                                                    </mat-icon> -->
-                                </div>
-                                <div
-                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                    <div class="flex items-center ng-star-inserted">
-                                        <div class="text-sm whitespace-nowrap text-secondary">16/04/2022</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div (click)="openProjectDetailDialog()" class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
-                        hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-2">
-                            <div class="flex flex-col">
-                                <div class="flex space-x-3">
-                                    <div class="font-medium text-green-600">Sprint Demo</div>
-                                    <div class="font-medium">Create database environment</div>
-                                </div>
-
-                                <div
-                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                    <div class="flex items-center ng-star-inserted">
-                                        <div class="flex space-x-3">
-                                            <div class="ml-1.5 text-md text-secondary">10:30 AM</div>
-                                            <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
-                                                <div
-                                                    class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-red-500 bg-gray-200 dark:text-red-500 dark:bg-gray-700 ng-star-inserted">
-                                                    Done </div>
+                                        <!-- <div class="items-center justify-center ">
+                                            <div
+                                                class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                                <mat-icon class="icon-size-4 text-green-600 dark:text-green-400"
+                                                    [svgIcon]="'heroicons_solid:arrow-narrow-down'" [title]="'Low'">
+                                                </mat-icon>
+                                                <mat-icon class="icon-size-4 text-red-600 dark:text-red-400"
+                                                                                    *ngIf="task.priority === 2"
+                                                                                    [svgIcon]="'heroicons_solid:arrow-narrow-up'" [title]="'High'">
+                                                                                </mat-icon>
                                             </div>
-                                        </div>
+                                            <div
+                                                class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                                <div class="flex items-center ng-star-inserted">
+                                                    <div class="text-sm whitespace-nowrap text-secondary">16/04/2022
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
                                     </div>
-                                </div>
-                            </div>
-                            <div class="items-center justify-center ">
-                                <div class="w-4 h-4 mr-3">
-                                    <!-- Low -->
-                                    <!-- <mat-icon class="icon-size-4 text-green-600 dark:text-green-400"
-                                   [svgIcon]="'heroicons_solid:arrow-narrow-down'" [title]="'Low'">
-                               </mat-icon> -->
-                                    <!-- High -->
-                                    <mat-icon class="icon-size-4 text-red-600 dark:text-red-400"
-                                        [svgIcon]="'heroicons_solid:arrow-narrow-up'" [title]="'High'">
-                                    </mat-icon>
-                                </div>
-                                <div
-                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                    <div class="flex items-center ng-star-inserted">
-                                        <div class="text-sm whitespace-nowrap text-secondary">12/08/2022</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-add-issue',
@@ -12,7 +13,9 @@ export class AddIssueComponent implements OnInit {
      * Constructor
      */
     constructor(
-        private _formBuilder: UntypedFormBuilder
+        private _formBuilder: UntypedFormBuilder,
+        public dialogRef: MatDialogRef<AddIssueComponent>,
+
     ) {
     }
 

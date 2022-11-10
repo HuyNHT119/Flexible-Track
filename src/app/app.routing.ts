@@ -1,3 +1,4 @@
+import { ProjectsResolver } from './modules/projects/project.resolvers';
 import { ProjectModule } from './modules/projects/project.module';
 import { Route } from '@angular/router';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
@@ -115,7 +116,12 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
-            { path: '', loadChildren: () => import('app/modules/projects/project.module').then(m => m.ProjectModule) },
+            {
+                resolve: {
+                    // ProjectsResolver
+                },
+                path: '', loadChildren: () => import('app/modules/projects/project.module').then(m => m.ProjectModule)
+            },
         ]
     },
     // Board routes

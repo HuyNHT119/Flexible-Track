@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Route, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { CommonModule } from '@angular/common';
 
 const projectRoutes: Route[] = [
     {
@@ -25,6 +26,7 @@ const projectRoutes: Route[] = [
     ],
     imports: [
         RouterModule.forChild(projectRoutes),
+        CommonModule,
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
