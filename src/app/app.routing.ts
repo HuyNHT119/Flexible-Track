@@ -118,7 +118,7 @@ export const appRoutes: Route[] = [
         children: [
             {
                 resolve: {
-                    // ProjectsResolver
+                    ProjectsResolver
                 },
                 path: '', loadChildren: () => import('app/modules/projects/project.module').then(m => m.ProjectModule)
             },

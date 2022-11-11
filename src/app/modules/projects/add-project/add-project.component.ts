@@ -17,7 +17,6 @@ export class AddProjectComponent implements OnInit {
         private _form: UntypedFormBuilder,
         private _projectService: ProjectService,
         public dialogRef: MatDialogRef<AddProjectComponent>,
-
     ) {
     }
 

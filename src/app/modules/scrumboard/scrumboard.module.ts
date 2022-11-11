@@ -1,3 +1,4 @@
+import { BacklogComponent } from './board/backlog/backlog.component';
 import { SprintComponent } from './../sprint/sprint.compoent';
 import { SprintModule } from './../sprint/sprint.module';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,7 +35,8 @@ import { scrumboardRoutes } from 'app/modules/scrumboard/scrumboard.routing';
         ScrumboardBoardAddListComponent,
         ScrumboardCardComponent,
         ScrumboardCardDetailsComponent,
-        SprintComponent
+        SprintComponent,
+        BacklogComponent
     ],
     imports: [
         RouterModule.forChild(scrumboardRoutes),

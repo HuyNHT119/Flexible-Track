@@ -7,7 +7,9 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class ProjectService {
 
     private _projects: BehaviorSubject<Project[] | null> = new BehaviorSubject(null);
+    private _sprints: BehaviorSubject<any | null> = new BehaviorSubject(null);
     private _project: BehaviorSubject<Project | null> = new BehaviorSubject(null);
+    private _sprint: BehaviorSubject<any | null> = new BehaviorSubject(null);
     // private _pagination: BehaviorSubject<PlaningPagination | null> = new BehaviorSubject(null);
 
     constructor(private _http: HttpClient) { }
@@ -20,17 +22,32 @@ export class ProjectService {
         return this._project.asObservable();
     }
 
-    getProjects(): Observable<Project[]> {
-        var params = {
-            userId: 1
+    get sprints$(): Observable<Project[]> {
+        return this._sprints.asObservable();
+    }
+
+    get sprint$(): Observable<Project> {
+        return this._sprint.asObservable();
+    }
+
+    getProjects() {
+        var body = {
+            pageNumber: 0,
+            pageSize: 0,
+            search: '',
+            userId: 2
         }
-        return this._http.get<Project[]>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', { params: params }).pipe(
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', body, { observe: 'response' }).pipe(
             tap((response) => {
-                if (response.length > 0) {
-                    this._projects.next(response);
+                if (response.body) {
+                    this._projects.next(response.body.content);
                 }
             }),
         );
+    }
+
+    getSprints(id: number) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/getAllByProjectId/' + id, { observe: 'response' })
     }
 
     getProject(id: number) {

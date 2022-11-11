@@ -26,7 +26,7 @@ export class ProjectsResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Project[]> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
         return this._projectService.getProjects();
     }
 }

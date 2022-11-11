@@ -1,3 +1,4 @@
+import { BacklogComponent } from './backlog/backlog.component';
 import { AddSprintComponent } from './../../sprint/add-sprint/add-sprint.component';
 import { IssueDetailComponent } from './../../issues/detail/issue-detail.component';
 import { AddIssueComponent } from './../../issues/add-issue/add-issue.component';
@@ -79,6 +80,10 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
 
     openAddSprintDialog() {
         this._dialog.open(AddSprintComponent);
+    }
+
+    openBacklogDialog() {
+        this._dialog.open(BacklogComponent);
     }
 
     openNewIssueDialog() {

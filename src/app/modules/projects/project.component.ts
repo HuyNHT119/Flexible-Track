@@ -1,7 +1,7 @@
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Project } from './project.model';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { ProjectService } from './project.service';
@@ -16,6 +16,8 @@ export class ProjectComponent implements OnInit {
     constructor(
         private _dialog: MatDialog,
         private _changeDetectorRef: ChangeDetectorRef,
+        public addProjectDialogRef: MatDialogRef<AddProjectComponent>,
+        public projectDetailDialogRef: MatDialogRef<ProjectDetailComponent>,
         private _projectService: ProjectService,
         private _form: UntypedFormBuilder
     ) { }
@@ -24,17 +26,20 @@ export class ProjectComponent implements OnInit {
     createProjectForm: UntypedFormGroup;
 
     ngOnInit() {
-        this.openProjectDetailDialog();
         this.loadProjects();
         this.projects$.subscribe(value => {
             console.log(value);
         })
     }
 
-    openProjectDetailDialog() {
+    openProjectDetailDialog(id: number) {
+        console.log(id);
         this._dialog.open(ProjectDetailComponent, {
-            width: '1080px'
-        })
+            width: '1080px',
+            data: {
+                projectId: id
+            }
+        });
     }
 
     openAddProjectDialog() {

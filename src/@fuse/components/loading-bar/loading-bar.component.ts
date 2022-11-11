@@ -1,17 +1,16 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseLoadingService } from '@fuse/services/loading';
 
 @Component({
-    selector     : 'fuse-loading-bar',
-    templateUrl  : './loading-bar.component.html',
-    styleUrls    : ['./loading-bar.component.scss'],
+    selector: 'fuse-loading-bar',
+    templateUrl: './loading-bar.component.html',
+    styleUrls: ['./loading-bar.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    exportAs     : 'fuseLoadingBar'
+    exportAs: 'fuseLoadingBar'
 })
-export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
-{
+export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy {
     @Input() autoMode: boolean = true;
     mode: 'determinate' | 'indeterminate';
     progress: number = 0;
@@ -21,8 +20,8 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
     /**
      * Constructor
      */
-    constructor(private _fuseLoadingService: FuseLoadingService)
-    {
+    constructor(private _fuseLoadingService: FuseLoadingService, private _changeDetector: ChangeDetectorRef) {
+
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -34,11 +33,9 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
      *
      * @param changes
      */
-    ngOnChanges(changes: SimpleChanges): void
-    {
+    ngOnChanges(changes: SimpleChanges): void {
         // Auto mode
-        if ( 'autoMode' in changes )
-        {
+        if ('autoMode' in changes) {
             // Set the auto mode in the service
             this._fuseLoadingService.setAutoMode(coerceBooleanProperty(changes.autoMode.currentValue));
         }
@@ -47,8 +44,7 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Subscribe to the service
         this._fuseLoadingService.mode$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -70,11 +66,14 @@ export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
 
     }
 
+    ngAfterContentChecked(): void {
+        this._changeDetector.detectChanges();
+    }
+
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();

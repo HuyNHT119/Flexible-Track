@@ -1,3 +1,4 @@
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectComponent } from './project.component';
 import { MatInputModule } from '@angular/material/input';
@@ -32,9 +33,16 @@ const projectRoutes: Route[] = [
         MatInputModule,
         MatSelectModule,
         MatIconModule,
+        MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
-    ]
+    ],
+    providers: [
+        {
+            provide: MatDialogRef,
+            useValue: {}
+        },
+    ],
 })
 export class ProjectModule {
 }
