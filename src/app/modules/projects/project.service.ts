@@ -33,17 +33,25 @@ export class ProjectService {
     getProjects() {
         var body = {
             pageNumber: 0,
-            pageSize: 0,
+            pageSize: 5,
             search: '',
             userId: 2
         }
-        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', body, { observe: 'response' }).pipe(
-            tap((response) => {
-                if (response.body) {
-                    this._projects.next(response.body.content);
-                }
-            }),
-        );
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', body, { observe: 'response' });
+    }
+
+    searchProjects(search?: string) {
+        var body = {
+            pageNumber: 0,
+            pageSize: 5,
+            search: search ?? '',
+            userId: 2
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', body, { observe: 'response' });
+    }
+
+    getProjectMembers(projectId: number) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getProjectMember/' + projectId, { observe: 'response' });
     }
 
     getSprints(id: number) {
@@ -51,17 +59,15 @@ export class ProjectService {
     }
 
     getProject(id: number) {
-        return this._http.get<Project>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject/' + id).pipe(
-            tap((response) => {
-                if (response !== null) {
-                    this._project.next(response);
-                }
-            }),
-        );
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getById/' + id, { observe: 'response' });
     }
 
     createProject(data: any) {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/create', data, { observe: 'response' });
+    }
+
+    updateProject(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/update', data, { observe: 'response' });
     }
 
 }

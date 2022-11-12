@@ -15,31 +15,31 @@ import { Observable } from 'rxjs';
 export class ProjectComponent implements OnInit {
     constructor(
         private _dialog: MatDialog,
-        private _changeDetectorRef: ChangeDetectorRef,
         public addProjectDialogRef: MatDialogRef<AddProjectComponent>,
         public projectDetailDialogRef: MatDialogRef<ProjectDetailComponent>,
         private _projectService: ProjectService,
         private _form: UntypedFormBuilder
     ) { }
 
-    projects$: Observable<Project[]>;
+    projects: Project[];
     createProjectForm: UntypedFormGroup;
+    searchForm: UntypedFormGroup;
 
     ngOnInit() {
         this.loadProjects();
-        this.projects$.subscribe(value => {
-            console.log(value);
-        })
+        this.searchForm = this._form.group({
+            search: ['']
+        });
     }
 
     openProjectDetailDialog(id: number) {
-        console.log(id);
         this._dialog.open(ProjectDetailComponent, {
             width: '1080px',
             data: {
                 projectId: id
-            }
+            },
         });
+
     }
 
     openAddProjectDialog() {
@@ -48,9 +48,18 @@ export class ProjectComponent implements OnInit {
         })
     }
 
+    searchProject() {
+        console.log('search');
+        this._projectService.searchProjects(this.searchForm.get('search').value).subscribe(result => {
+            this.projects = result.body.content;
+        });
+    }
+
     //PRIVATE METHOD
     private loadProjects(): void {
-        this.projects$ = this._projectService.projects$;
+        this._projectService.getProjects().subscribe(result => {
+            this.projects = result.body.content;
+        });
     }
 
 }

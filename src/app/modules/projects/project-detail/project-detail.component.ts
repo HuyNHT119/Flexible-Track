@@ -11,7 +11,9 @@ import { Observable } from 'rxjs';
 
 export class ProjectDetailComponent implements OnInit {
     editForm: UntypedFormGroup;
+    project: any = {};
     sprints: any = [];
+    members: any = [];
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,13 +27,43 @@ export class ProjectDetailComponent implements OnInit {
             title: [''],
             description: ['']
         });
+        this.getProjectById();
         this.getProjectSprint();
+        this.getProjectMembers();
+    }
+
+    getProjectById() {
+        this._projectService.getProject(this.data.projectId).subscribe(result => {
+            this.project = result.body;
+            this.editForm.setValue({
+                title: result.body.projectName,
+                description: result.body.projectDescription,
+            });
+        })
     }
 
     getProjectSprint() {
         this._projectService.getSprints(this.data.projectId).subscribe(response => {
             this.sprints = response.body;
-            console.log(response);
+        })
+    }
+
+    getProjectMembers() {
+        this._projectService.getProjectMembers(this.data.projectId).subscribe(result => {
+            this.members = result.body;
+        });
+    }
+
+    updateProject() {
+        var body = {
+            projectId: this.data.projectId,
+            projectName: this.editForm.get('title').value,
+            projectDescription: this.editForm.get('description').value,
+        }
+        this._projectService.updateProject(body).subscribe(result => {
+            if (result.status === 200) {
+                this.project = result.body.project;
+            }
         })
     }
 }
