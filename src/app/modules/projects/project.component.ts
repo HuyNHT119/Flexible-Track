@@ -38,6 +38,8 @@ export class ProjectComponent implements OnInit {
             data: {
                 projectId: id
             },
+        }).afterClosed().subscribe(() => {
+            this.loadProjects();
         });
 
     }

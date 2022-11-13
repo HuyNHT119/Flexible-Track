@@ -11,6 +11,7 @@ import { Route, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { CommonModule } from '@angular/common';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 const projectRoutes: Route[] = [
     {
@@ -23,7 +24,8 @@ const projectRoutes: Route[] = [
     declarations: [
         ProjectComponent,
         AddProjectComponent,
-        ProjectDetailComponent
+        ProjectDetailComponent,
+        AddMemberComponent
     ],
     imports: [
         RouterModule.forChild(projectRoutes),

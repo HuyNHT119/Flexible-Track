@@ -58,6 +58,10 @@ export class ProjectService {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/getAllByProjectId/' + id, { observe: 'response' })
     }
 
+    getIssues(id: number) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByProjectId/' + id, { observe: 'response' })
+    }
+
     getProject(id: number) {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getById/' + id, { observe: 'response' });
     }
@@ -68,6 +72,15 @@ export class ProjectService {
 
     updateProject(data: any) {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/update', data, { observe: 'response' });
+    }
+
+    searchMembers(search?: string) {
+        var data = {
+            pageNumber: 0,
+            pageSize: 5,
+            search: search ?? '',
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/accounts/searchUser', data, { observe: 'response' });
     }
 
 }

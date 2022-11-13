@@ -34,9 +34,20 @@
 
                     <div class="grid grid-cols-2 gap-6 mb-6">
                         <div class="col-span-1">
-                            <div>Members</div>
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div class="col-span-1">
+                                    <div>Members</div>
+                                </div>
+                                <div class="col-span-1 text-right">
+                                    <button class="" mat-flat-button [color]="'primary'"
+                                        (click)="openAddMemberDialog()">
+                                        <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+                                    </button>
+                                </div>
+                            </div>
                             <div *ngFor="let member of members"
-                                class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                                [ngClass]="member.role == 'Owner' ? 'text-red-600' : 'text-gray-500'"
+                                class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
                                 <mat-icon role="img"
                                     class="mat-icon notranslate icon-size-5 text-current mat-icon-no-color"
                                     aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="user"
@@ -52,24 +63,34 @@
                             </div>
                         </div>
                         <div class="col-span-1 overflow-y-scroll max-h-64">
-                            <div>Issues</div>
-                            <div *ngFor="let sprint of sprints" class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div class="col-span-1">
+                                    <div>Issues</div>
+                                </div>
+                                <div class="col-span-1 text-right">
+                                    <button class="" mat-flat-button [color]="'primary'" (click)="openAddIssueDialog()">
+                                        <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div *ngFor="let issue of  issues" class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
                             hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-2">
                                 <div class="flex flex-col">
                                     <div class="flex space-x-3">
-                                        <div class="font-medium text-green-600">Sprint Demo</div>
-                                        <div class="font-medium">Create database environment</div>
+                                        <div class="font-medium text-green-600">{{ issue.issueName }}</div>
+                                        <div class="font-medium">{{ issue.description }}</div>
                                     </div>
 
                                     <div
                                         class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
                                         <div class="flex items-center ng-star-inserted">
                                             <div class="flex space-x-3">
-                                                <div class="ml-1.5 text-md text-secondary">10:30 AM</div>
+                                                <div class="ml-1.5 text-md text-secondary">{{ issue.createdDate | date:
+                                                    'short' }}</div>
                                                 <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
                                                     <div
                                                         class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-red-500 bg-gray-200 dark:text-red-500 dark:bg-gray-700 ng-star-inserted">
-                                                        Done </div>
+                                                        {{ issue.status.name }} </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,19 +99,20 @@
                                 <div class="items-center justify-center">
                                     <div class="w-4 h-4 mr-3">
                                         <!-- Low -->
-                                        <!-- <mat-icon class="icon-size-4 text-green-600 dark:text-green-400"
-                                       [svgIcon]="'heroicons_solid:arrow-narrow-down'" [title]="'Low'">
-                                   </mat-icon> -->
+                                        <mat-icon *ngIf="issue.priority.name == 'low'"
+                                            class="icon-size-4 text-green-600 dark:text-green-400"
+                                            [svgIcon]="'heroicons_solid:arrow-narrow-down'" [title]="'Low'">
+                                        </mat-icon>
+                                        <!-- Normal -->
+                                        <mat-icon *ngIf="issue.priority.name == 'normal'"
+                                            class="icon-size-4 text-blue-600 dark:text-blue-400"
+                                            [svgIcon]="'heroicons_solid:arrow-narrow-left'" [title]="'Normal'">
+                                        </mat-icon>
                                         <!-- High -->
-                                        <mat-icon class="icon-size-4 text-red-600 dark:text-red-400"
+                                        <mat-icon *ngIf="issue.priority.name == 'critical'"
+                                            class="icon-size-4 text-red-600 dark:text-red-400"
                                             [svgIcon]="'heroicons_solid:arrow-narrow-up'" [title]="'High'">
                                         </mat-icon>
-                                    </div>
-                                    <div
-                                        class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                        <div class="flex items-center ng-star-inserted">
-                                            <div class="text-sm whitespace-nowrap text-secondary">12/08/2022</div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,7 +1,9 @@
+import { AddMemberComponent } from './../add-member/add-member.component';
+import { AddIssueComponent } from './../../issues/add-issue/add-issue.component';
 import { ProjectService } from './../project.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,13 +14,16 @@ import { Observable } from 'rxjs';
 export class ProjectDetailComponent implements OnInit {
     editForm: UntypedFormGroup;
     project: any = {};
-    sprints: any = [];
+    issues: any = [];
     members: any = [];
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private _formBuilder: UntypedFormBuilder,
         public dialogRef: MatDialogRef<ProjectDetailComponent>,
+        private dialog: MatDialog,
+        public addIssueDialogRef: MatDialogRef<AddIssueComponent>,
+        public addMemberDialogRef: MatDialogRef<AddMemberComponent>,
         private _projectService: ProjectService
     ) { }
 
@@ -28,8 +33,23 @@ export class ProjectDetailComponent implements OnInit {
             description: ['']
         });
         this.getProjectById();
-        this.getProjectSprint();
+        // this.getProjectSprint();
+        this.getProjectIssues();
         this.getProjectMembers();
+    }
+
+    openAddIssueDialog() {
+        this.dialog.open(AddIssueComponent).afterClosed().subscribe(() => {
+            console.log('Hahaha');
+        });
+    }
+
+    openAddMemberDialog() {
+        this.dialog.open(AddMemberComponent, {
+            width: '480px'
+        }).afterClosed().subscribe(() => {
+            console.log('Hahaha');
+        });
     }
 
     getProjectById() {
@@ -42,9 +62,15 @@ export class ProjectDetailComponent implements OnInit {
         })
     }
 
-    getProjectSprint() {
-        this._projectService.getSprints(this.data.projectId).subscribe(response => {
-            this.sprints = response.body;
+    // getProjectSprint() {
+    //     this._projectService.getSprints(this.data.projectId).subscribe(response => {
+    //         this.sprints = response.body;
+    //     })
+    // }
+
+    getProjectIssues() {
+        this._projectService.getIssues(this.data.projectId).subscribe(response => {
+            this.issues = response.body;
         })
     }
 
