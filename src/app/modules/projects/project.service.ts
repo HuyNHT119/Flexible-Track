@@ -61,7 +61,7 @@ export class ProjectService {
     getIssues(id: number, search?: string) {
         var data = {
             pageNumber: 0,
-            pageSize: 5,
+            pageSize: 15,
             search: search ?? '',
             id: id
         }
