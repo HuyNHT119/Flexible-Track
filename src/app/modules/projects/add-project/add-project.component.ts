@@ -35,6 +35,7 @@ export class AddProjectComponent implements OnInit {
     createProject() {
         if (this.createProjectForm.valid) {
             this._projectService.createProject(this.createProjectForm.value).subscribe(result => {
+                console.log(result);
                 if (result.status === 200) {
                     this._projectService.getProjects();
                 }

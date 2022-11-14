@@ -33,7 +33,7 @@ export class ProjectService {
     getProjects() {
         var body = {
             pageNumber: 0,
-            pageSize: 5,
+            pageSize: 15,
             search: '',
             userId: 2
         }
@@ -43,7 +43,7 @@ export class ProjectService {
     searchProjects(search?: string) {
         var body = {
             pageNumber: 0,
-            pageSize: 5,
+            pageSize: 15,
             search: search ?? '',
             userId: 2
         }
@@ -83,7 +83,7 @@ export class ProjectService {
     searchMembers(search?: string) {
         var data = {
             pageNumber: 0,
-            pageSize: 5,
+            pageSize: 15,
             search: search ?? '',
         }
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/accounts/searchUser', data, { observe: 'response' });
