@@ -47,6 +47,8 @@ export class ProjectComponent implements OnInit {
     openAddProjectDialog() {
         this._dialog.open(AddProjectComponent, {
             width: '720px'
+        }).afterClosed().subscribe(() => {
+            this.loadProjects();
         })
     }
 

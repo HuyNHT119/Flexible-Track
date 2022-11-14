@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProjectService } from './../project.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class AddMemberComponent implements OnInit {
     searchForm: UntypedFormGroup;
     members: any = [];
     constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<AddMemberComponent>,
         private form: UntypedFormBuilder,
         private _projectService: ProjectService
@@ -36,6 +37,12 @@ export class AddMemberComponent implements OnInit {
             this.members = [];
         }
 
+    }
+
+    addMember(memberId: number) {
+        this._projectService.inviteMember(this.data.projectId, memberId).subscribe(result => {
+            console.log(result);
+        })
     }
 
 }

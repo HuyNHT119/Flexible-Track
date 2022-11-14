@@ -83,4 +83,18 @@ export class ProjectService {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/accounts/searchUser', data, { observe: 'response' });
     }
 
+    inviteMember(projectId: number, memberId: number) {
+        var body = {
+            projectId: projectId,
+            userId: memberId
+        }
+        console.log(body);
+
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/addMember', body, { observe: 'response' })
+    }
+
+    createIssue(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/create', data, { observe: 'response' })
+    }
+
 }

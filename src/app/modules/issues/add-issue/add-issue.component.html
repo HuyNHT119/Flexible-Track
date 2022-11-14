@@ -18,7 +18,7 @@
                     <div class="mb-6">
                         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
                             <mat-label>Title</mat-label>
-                            <textarea matInput [formControlName]="'title'" [spellcheck]="false" matTextareaAutosize
+                            <textarea matInput formControlName="name" [spellcheck]="false" matTextareaAutosize
                                 #titleField></textarea>
                         </mat-form-field>
                     </div>
@@ -81,8 +81,8 @@
                     <div class="mb-6">
                         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
                             <mat-label>Description</mat-label>
-                            <textarea matInput [formControlName]="'description'" [spellcheck]="false"
-                                matTextareaAutosize #titleField></textarea>
+                            <textarea matInput formControlName="description" [spellcheck]="false" matTextareaAutosize
+                                #titleField></textarea>
                         </mat-form-field>
                     </div>
 
@@ -106,7 +106,7 @@
                             </label>
                         </div>
                     </div>
-                    <button class="w-full" mat-flat-button [color]="'primary'">
+                    <button class="w-full" mat-flat-button [color]="'primary'" (click)="createIssue()">
                         <span>Create</span>
                     </button>
                 </form>

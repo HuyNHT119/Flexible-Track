@@ -1,10 +1,9 @@
-import { AddMemberComponent } from './../add-member/add-member.component';
-import { AddIssueComponent } from './../../issues/add-issue/add-issue.component';
-import { ProjectService } from './../project.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { AddIssueComponent } from './../../issues/add-issue/add-issue.component';
+import { AddMemberComponent } from './../add-member/add-member.component';
+import { ProjectService } from './../project.service';
 
 @Component({
     selector: 'app-project-detail',
@@ -40,15 +39,16 @@ export class ProjectDetailComponent implements OnInit {
 
     openAddIssueDialog() {
         this.dialog.open(AddIssueComponent).afterClosed().subscribe(() => {
-            console.log('Hahaha');
+            this.getProjectIssues();
         });
     }
 
     openAddMemberDialog() {
         this.dialog.open(AddMemberComponent, {
-            width: '480px'
+            width: '480px',
+            data: this.data
         }).afterClosed().subscribe(() => {
-            console.log('Hahaha');
+            this.getProjectMembers();
         });
     }
 
