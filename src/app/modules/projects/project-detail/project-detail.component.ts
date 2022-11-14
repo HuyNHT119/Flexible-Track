@@ -70,7 +70,7 @@ export class ProjectDetailComponent implements OnInit {
 
     getProjectIssues() {
         this._projectService.getIssues(this.data.projectId).subscribe(response => {
-            this.issues = response.body;
+            this.issues = response.body.content;
         })
     }
 

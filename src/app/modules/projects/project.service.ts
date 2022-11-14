@@ -58,8 +58,14 @@ export class ProjectService {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/getAllByProjectId/' + id, { observe: 'response' })
     }
 
-    getIssues(id: number) {
-        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByProjectId/' + id, { observe: 'response' })
+    getIssues(id: number, search?: string) {
+        var data = {
+            pageNumber: 0,
+            pageSize: 5,
+            search: search ?? '',
+            id: id
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByProjectId/' + id, data, { observe: 'response' })
     }
 
     getProject(id: number) {

@@ -88,7 +88,7 @@
                                                 <div class="ml-1.5 text-md text-secondary">{{ issue.createdDate | date:
                                                     'short' }}</div>
                                                 <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
-                                                    <div
+                                                    <div *ngIf="issue.status"
                                                         class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-red-500 bg-gray-200 dark:text-red-500 dark:bg-gray-700 ng-star-inserted">
                                                         {{ issue.status.name }} </div>
                                                 </div>
@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="items-center justify-center">
-                                    <div class="w-4 h-4 mr-3">
+                                    <div *ngIf="issue.priority" class="w-4 h-4 mr-3">
                                         <!-- Low -->
                                         <mat-icon *ngIf="issue.priority.name == 'low'"
                                             class="icon-size-4 text-green-600 dark:text-green-400"
