@@ -117,7 +117,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {
-                path: '', loadChildren: () => import('app/modules/projects/project.module').then(m => m.ProjectModule)
+                path: '', loadChildren: () => import('app/modules/projects/project.module').then(m => m.ProjectModule),
             },
         ]
     },

@@ -26,56 +26,69 @@
                         <div class="grid grid-cols-2 gap-3">
                             <!-- Priority -->
                             <div class="col-span-1">
-                                <div class="font-medium">Priority</div>
-                                <div
-                                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer w-full text-green-800 bg-green-200 dark:text-green-100 dark:bg-green-500">
-                                    <!-- High -->
-                                    <mat-icon class="icon-size-4 text-current"
-                                        [svgIcon]="'heroicons_solid:arrow-narrow-up'">
+                                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                                    <mat-label>Priority</mat-label>
+                                    <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'"
+                                        matPrefix>
                                     </mat-icon>
-                                    <span class="ml-2 mr-1 text-md font-medium">High</span>
-                                </div>
+                                    <mat-select (valueChange)="changeValue($event)">
+                                        <mat-option *ngFor="let priority of priorities" [value]="priority">{{
+                                            priority.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
 
                             <!-- Due date -->
                             <div class="col-span-1">
-                                <div class="font-medium">Due date</div>
-                                <div
-                                    class="relative flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer w-full text-red-800 bg-red-200 dark:text-red-100 dark:bg-red-500">
-                                    <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:calendar'">
-                                    </mat-icon>
-                                    <span class="ml-2 text-md font-medium">
-                                        <ng-container>12/12/2022</ng-container>
-                                    </span>
-                                </div>
+                                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                                    <mat-label>Estimate (Hour)</mat-label>
+                                    <input type="number" matInput formControlName="estimation" [spellcheck]="false"
+                                        matTextareaAutosize #titleField />
+                                </mat-form-field>
                             </div>
                         </div>
 
                     </div>
-                    <div class="mb-6">
-                        <div class="font-medium">Assign to</div>
-                        <div
-                            class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
-                            <mat-icon role="img" class="mat-icon notranslate icon-size-5 text-current mat-icon-no-color"
-                                aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="user"
-                                data-mat-icon-namespace="heroicons_solid">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" fit=""
-                                    height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </mat-icon><span class="ml-2 text-md font-medium">Not
-                                assign</span>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="col-span-1">
+                            <!-- Priority -->
+                            <mat-form-field class="mb-0 w-full">
+                                <mat-label>Assign to</mat-label>
+                                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
+                                </mat-icon>
+                                <mat-select (valueChange)="changeMemberValue($event)">
+                                    <mat-option *ngFor="let member of members" [value]="member">{{
+                                        member.fullname }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-span-1">
+                            <mat-form-field class="mb-0 w-full">
+                                <mat-label>Type</mat-label>
+                                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
+                                </mat-icon>
+                                <mat-select (valueChange)="changeTypeValue($event)">
+                                    <mat-option *ngFor="let type of types" [value]="type">{{
+                                        type.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
+
                     <div class="mb-6">
-                        <div class="font-medium">Tags</div>
-                        <div
-                            class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
-                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
+                        <mat-form-field class="mb-0 w-full">
+                            <mat-label>Tags</mat-label>
+                            <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
                             </mat-icon>
-                            <span class="ml-1.5 text-md font-medium whitespace-nowrap">Add</span>
-                        </div>
+                            <mat-select (valueChange)="changeTagValue($event)" multiple>
+                                <mat-option *ngFor="let tag of tags" [value]="tag">{{
+                                    tag.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                     <!-- Description -->
                     <div class="mb-6">

@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,8 @@ import { IssueComponent } from './issue.component';
 import { AddIssueComponent } from './add-issue/add-issue.component';
 import { IssueDetailComponent } from './detail/issue-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 const issueRoutes: Route[] = [
     {
@@ -25,9 +28,12 @@ const issueRoutes: Route[] = [
     ],
     imports: [
         RouterModule.forChild(issueRoutes),
+        CommonModule,
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         MatSelectModule,
         MatIconModule,
         FormsModule,

@@ -1,3 +1,8 @@
+import { SettingComponent } from './settings/setting.component';
+import { SettingsComponent } from './../../layout/common/settings/settings.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CreateSprintComponent } from './sprint/create-sprint.component';
+import { DetailComponent } from './detail/detail.component';
 import { MatDialogRef, MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectComponent } from './project.component';
@@ -12,11 +17,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { CommonModule } from '@angular/common';
 import { AddMemberComponent } from './add-member/add-member.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const projectRoutes: Route[] = [
     {
         path: '',
-        component: ProjectComponent
+        component: ProjectComponent,
+    },
+    {
+        path: ':id',
+        component: DetailComponent
     }
 ];
 
@@ -25,7 +35,10 @@ const projectRoutes: Route[] = [
         ProjectComponent,
         AddProjectComponent,
         ProjectDetailComponent,
-        AddMemberComponent
+        AddMemberComponent,
+        DetailComponent,
+        CreateSprintComponent,
+        SettingComponent
     ],
     imports: [
         RouterModule.forChild(projectRoutes),
@@ -36,6 +49,8 @@ const projectRoutes: Route[] = [
         MatSelectModule,
         MatIconModule,
         MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         FormsModule,
         ReactiveFormsModule,
     ],

@@ -19,6 +19,8 @@ export class AddMemberComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        console.log(this.data);
+
         this.initSearchForm();
     }
 
@@ -30,7 +32,7 @@ export class AddMemberComponent implements OnInit {
 
     searchMembers() {
         if (this.searchForm.get('search').value !== '') {
-            this._projectService.searchMembers(this.searchForm.get('search').value).subscribe(result => {
+            this._projectService.searchMembers(this.data.projectId, this.searchForm.get('search').value).subscribe(result => {
                 this.members = result.body.content
             })
         } else {

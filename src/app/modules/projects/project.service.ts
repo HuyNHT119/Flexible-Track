@@ -61,14 +61,14 @@ export class ProjectService {
     getIssues(id: number, search?: string) {
         var data = {
             pageNumber: 0,
-            pageSize: 15,
+            pageSize: 5,
             search: search ?? '',
             id: id
         }
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByProjectId/' + id, data, { observe: 'response' })
     }
 
-    getProject(id: number) {
+    getProject(id: any) {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getById/' + id, { observe: 'response' });
     }
 
@@ -80,11 +80,12 @@ export class ProjectService {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/update', data, { observe: 'response' });
     }
 
-    searchMembers(search?: string) {
+    searchMembers(projectId: number, search?: string) {
         var data = {
             pageNumber: 0,
             pageSize: 15,
             search: search ?? '',
+            projectId: projectId
         }
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/accounts/searchUser', data, { observe: 'response' });
     }
@@ -101,6 +102,44 @@ export class ProjectService {
 
     createIssue(data: any) {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/create', data, { observe: 'response' })
+    }
+
+    createSprint(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/create', data, { observe: 'response' });
+    }
+
+    getIssueBySprintId(id: any, search?: string) {
+        var data = {
+            pageNumber: 0,
+            pageSize: 15,
+            search: search ?? '',
+            id: id
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllBySprintId/' + id, data, { observe: 'response' });
+    }
+
+    getPriorityByProjectId(id: any) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/priorities/get-by-project/' + id, { observe: 'response' })
+    }
+
+    getTypeByProjectId(id: any) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/types/get-by-project/' + id, { observe: 'response' })
+    }
+
+    getTagsByProjectId(id: any) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/tags/get-by-project/' + id, { observe: 'response' })
+    }
+
+    createTag(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/tags/create', data, { observe: 'response' })
+    }
+
+    createType(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/types/create', data, { observe: 'response' })
+    }
+
+    createPriority(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/priorities/create', data, { observe: 'response' })
     }
 
 }
