@@ -1,11 +1,10 @@
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Project } from './project.model';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { Project } from './project.model';
 import { ProjectService } from './project.service';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-project',

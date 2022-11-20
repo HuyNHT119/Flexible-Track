@@ -1,7 +1,7 @@
-import { Project } from './project.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Project } from './project.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
@@ -140,6 +140,14 @@ export class ProjectService {
 
     createPriority(data: any) {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/priorities/create', data, { observe: 'response' })
+    }
+
+    createSprintStatus(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/status/create', data, { observe: 'response' })
+    }
+
+    getSprintStatus(id: any) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/status/get-by-sprint/' + id, { observe: 'response' })
     }
 
 }

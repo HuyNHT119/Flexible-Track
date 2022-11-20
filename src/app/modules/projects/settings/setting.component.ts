@@ -75,38 +75,44 @@ export class SettingComponent implements OnInit, AfterViewInit {
     }
 
     createTag() {
-        var data = {
-            projectId: this.data.projectId,
-            name: this.createTagForm.controls['tagName'].value
-        }
-        this._projectService.createTag(data).subscribe(result => {
-            if (result.status == 200) {
-                this.getTags();
+        if (this.createTagForm.valid) {
+            var data = {
+                projectId: this.data.projectId,
+                name: this.createTagForm.controls['tagName'].value
             }
-        })
+            this._projectService.createTag(data).subscribe(result => {
+                if (result.status == 200) {
+                    this.getTags();
+                }
+            })
+        }
     }
 
     createType() {
-        var data = {
-            projectId: this.data.projectId,
-            name: this.createTypeForm.controls['typeName'].value
-        }
-        this._projectService.createType(data).subscribe(result => {
-            if (result.status == 200) {
-                this.getTypes();
+        if (this.createTypeForm.valid) {
+            var data = {
+                projectId: this.data.projectId,
+                name: this.createTypeForm.controls['typeName'].value
             }
-        })
+            this._projectService.createType(data).subscribe(result => {
+                if (result.status == 200) {
+                    this.getTypes();
+                }
+            })
+        }
     }
 
     createPriority() {
-        var data = {
-            projectId: this.data.projectId,
-            name: this.createPriorityForm.controls['priorityName'].value
-        }
-        this._projectService.createPriority(data).subscribe(result => {
-            if (result.status == 200) {
-                this.getPriorities();
+        if (this.createPriorityForm.valid) {
+            var data = {
+                projectId: this.data.projectId,
+                name: this.createPriorityForm.controls['priorityName'].value
             }
-        })
+            this._projectService.createPriority(data).subscribe(result => {
+                if (result.status == 200) {
+                    this.getPriorities();
+                }
+            })
+        }
     }
 }

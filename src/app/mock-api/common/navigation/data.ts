@@ -2,13 +2,7 @@
 import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
-    {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'basic',
-        icon: 'heroicons_outline:home',
-        link: '/dashboard'
-    },
+
     {
         id: 'project',
         title: 'Projects',
@@ -25,7 +19,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'board',
-        title: 'Agile Boards',
+        title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
@@ -33,13 +27,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
 
 ];
 export const compactNavigation: FuseNavigationItem[] = [
-    {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'basic',
-        icon: 'heroicons_outline:home',
-        link: '/dashboard'
-    },
+
     {
         id: 'project',
         title: 'Projects',
@@ -56,7 +44,7 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'board',
-        title: 'Agile Boards',
+        title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
@@ -64,13 +52,7 @@ export const compactNavigation: FuseNavigationItem[] = [
 
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
-    {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'basic',
-        icon: 'heroicons_outline:home',
-        link: '/dashboard'
-    },
+
     {
         id: 'project',
         title: 'Projects',
@@ -87,7 +69,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'board',
-        title: 'Agile Boards',
+        title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'
@@ -95,13 +77,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
 
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
-    {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'basic',
-        icon: 'heroicons_outline:home',
-        link: '/dashboard'
-    },
+
     {
         id: 'project',
         title: 'Projects',
@@ -118,7 +94,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'board',
-        title: 'Agile Boards',
+        title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
         link: '/boards'

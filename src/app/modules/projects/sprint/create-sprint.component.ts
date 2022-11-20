@@ -11,6 +11,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class CreateSprintComponent implements OnInit {
 
     createSprintForm: UntypedFormGroup;
+    createStatusForm: UntypedFormGroup;
     formFieldHelpers: string[] = [''];
 
     constructor(
@@ -35,12 +36,23 @@ export class CreateSprintComponent implements OnInit {
         });
     }
 
+    initCreateStatusForm() {
+        this.createStatusForm = this._form.group({
+            statusName: ['', Validators.required],
+            sprintId: ['', Validators.required]
+        });
+    }
+
     createSprint() {
         this.createSprintForm.controls['creatorId'].setValue(2);
         this.createSprintForm.controls['projectId'].setValue(this.data.projectId);
         this._projectService.createSprint(this.createSprintForm.value).subscribe(result => {
             console.log(result);
         })
+    }
+
+    createStatus() {
+
     }
 
     getFormFieldHelpersAsString(): string {

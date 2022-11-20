@@ -1,23 +1,22 @@
-import { SettingComponent } from './settings/setting.component';
-import { SettingsComponent } from './../../layout/common/settings/settings.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { CreateSprintComponent } from './sprint/create-sprint.component';
-import { DetailComponent } from './detail/detail.component';
-import { MatDialogRef, MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { ProjectDetailComponent } from './project-detail/project-detail.component';
-import { ProjectComponent } from './project.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Route, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddProjectComponent } from './add-project/add-project.component';
-import { CommonModule } from '@angular/common';
 import { AddMemberComponent } from './add-member/add-member.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { AddProjectComponent } from './add-project/add-project.component';
+import { DetailComponent } from './detail/detail.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { ProjectComponent } from './project.component';
+import { SettingComponent } from './settings/setting.component';
+import { CreateSprintComponent } from './sprint/create-sprint.component';
 
 const projectRoutes: Route[] = [
     {
