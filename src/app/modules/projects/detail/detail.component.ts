@@ -39,7 +39,6 @@ export class DetailComponent implements OnInit {
         this.initProjectForm();
         this.getProjectById();
         this.getProjectSprint();
-        this.getProjectIssues();
         this.getProjectMembers();
     }
 
@@ -65,19 +64,20 @@ export class DetailComponent implements OnInit {
     }
 
     openIssueDetailDialog(id: any) {
-        console.warn(id);
-        this._dialog.open(IssueDetailComponent, {
-            width: '720px',
-            data: {
-                issueId: id,
-                sprintId: this.selectedSprintId,
-                projectId: this.id
-            }
-        }).afterClosed().subscribe(() => {
-            if (this.selectedSprintId) {
-                this.getIssueBySprintId(this.selectedSprintId);
-            }
-        });
+        if (this.selectedSprintId) {
+            this._dialog.open(IssueDetailComponent, {
+                width: '720px',
+                data: {
+                    issueId: id,
+                    sprintId: this.selectedSprintId,
+                    projectId: this.id
+                }
+            }).afterClosed().subscribe(() => {
+                if (this.selectedSprintId) {
+                    this.getIssueBySprintId(this.selectedSprintId);
+                }
+            });
+        }
     }
 
     openAddIssueDialog() {
@@ -121,14 +121,6 @@ export class DetailComponent implements OnInit {
     getProjectSprint() {
         this._projectService.getSprints(this.id).subscribe(response => {
             this.sprints = response.body;
-        })
-    }
-
-    getProjectIssues() {
-        this._projectService.getIssues(this.id).subscribe(response => {
-            this.issues = response.body.content;
-            console.log('Issues');
-            console.log(this.issues);
         })
     }
 

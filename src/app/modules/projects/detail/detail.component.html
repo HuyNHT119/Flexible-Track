@@ -141,7 +141,8 @@
                                 <div class="text-lg font-medium tracking-tight leading-6 truncate">Issues</div>
                             </div>
                             <div class="col-span-1 text-right">
-                                <button class="" mat-flat-button [color]="'primary'" (click)="openAddIssueDialog()">
+                                <button mat-flat-button [color]="'primary'" (click)="openAddIssueDialog()"
+                                    [disabled]="!selectedSprintId">
                                     <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
                                 </button>
                             </div>
