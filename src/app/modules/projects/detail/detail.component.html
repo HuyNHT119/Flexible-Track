@@ -148,24 +148,26 @@
                         </div>
                     </div>
 
-                    <div *ngFor="let issue of  issues" class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
-                    hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-3">
-                        <div class="flex flex-col">
-                            <div class="flex space-x-3">
-                                <div class="font-medium text-green-600">{{ issue.issueName }}</div>
-                                <div class="font-medium">{{ issue.description }}</div>
-                            </div>
-
-                            <div
-                                class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                <div class="flex items-center ng-star-inserted">
-                                    <div class="flex space-x-3">
-                                        <div class="ml-1.5 text-md text-secondary">{{ issue.createdDate | date:
-                                            'short' }}</div>
-                                        <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
-                                            <div *ngIf="issue.status"
-                                                class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-blue-500 bg-gray-200 dark:text-blue-500 dark:bg-gray-700 ng-star-inserted">
-                                                {{ issue.status.name }} </div>
+                    <div *ngFor="let issue of  issues">
+                        <div class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
+                        hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-3"
+                            (click)="openIssueDetailDialog(issue.issueId)">
+                            <div class="flex flex-col">
+                                <div class="flex space-x-3">
+                                    <div class="font-medium text-green-600">{{ issue.issueName }}</div>
+                                    <div class="font-medium">{{ issue.description }}</div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                    <div class="flex items-center ng-star-inserted">
+                                        <div class="flex space-x-3">
+                                            <div class="ml-1.5 text-md text-secondary">{{ issue.createdDate | date:
+                                                'short' }}</div>
+                                            <div class="flex flex-wrap items-center -m-1 ng-star-inserted">
+                                                <div *ngIf="issue.status"
+                                                    class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-blue-500 bg-gray-200 dark:text-blue-500 dark:bg-gray-700 ng-star-inserted">
+                                                    {{ issue.status.name }} </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

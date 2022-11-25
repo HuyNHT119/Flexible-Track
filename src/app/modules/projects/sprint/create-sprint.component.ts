@@ -12,6 +12,7 @@ export class CreateSprintComponent implements OnInit {
 
     createSprintForm: UntypedFormGroup;
     createStatusForm: UntypedFormGroup;
+    statuses: any[] = [];
     formFieldHelpers: string[] = [''];
 
     constructor(
@@ -24,6 +25,7 @@ export class CreateSprintComponent implements OnInit {
 
     ngOnInit() {
         this.initCreateSprintForm();
+        this.initCreateStatusForm();
     }
 
     initCreateSprintForm() {
@@ -32,27 +34,34 @@ export class CreateSprintComponent implements OnInit {
             startedDate: ['', Validators.required],
             finishedDate: ['', Validators.required],
             creatorId: ['', Validators.required],
-            projectId: ['', Validators.required]
+            projectId: ['', Validators.required],
+            statusList: [[], Validators.required]
         });
     }
 
     initCreateStatusForm() {
         this.createStatusForm = this._form.group({
-            statusName: ['', Validators.required],
-            sprintId: ['', Validators.required]
+            name: ['', Validators.required]
         });
     }
 
     createSprint() {
         this.createSprintForm.controls['creatorId'].setValue(2);
         this.createSprintForm.controls['projectId'].setValue(this.data.projectId);
+        this.createSprintForm.controls['statusList'].setValue(this.statuses);
         this._projectService.createSprint(this.createSprintForm.value).subscribe(result => {
             console.log(result);
         })
     }
 
-    createStatus() {
+    addStatus() {
+        if (this.createStatusForm.valid) {
+            this.statuses.push(this.createStatusForm.value);
+        }
+    }
 
+    removeStatus(index: any) {
+        this.statuses.splice(index, 1)
     }
 
     getFormFieldHelpersAsString(): string {

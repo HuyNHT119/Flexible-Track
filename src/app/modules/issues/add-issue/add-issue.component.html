@@ -84,7 +84,7 @@
                             <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
                             </mat-icon>
                             <mat-select (valueChange)="changeTagValue($event)" multiple>
-                                <mat-option *ngFor="let tag of tags" [value]="tag">{{
+                                <mat-option *ngFor="let tag of tags" [value]="tag.id">{{
                                     tag.name }}
                                 </mat-option>
                             </mat-select>
@@ -96,6 +96,19 @@
                             <mat-label>Description</mat-label>
                             <textarea matInput formControlName="description" [spellcheck]="false" matTextareaAutosize
                                 #titleField></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-6">
+                        <mat-form-field class="mb-0 w-full">
+                            <mat-label>Status</mat-label>
+                            <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
+                            </mat-icon>
+                            <mat-select (valueChange)="changeStatusValue($event)">
+                                <mat-option *ngFor="let status of statuses" [value]="status">{{
+                                    status.name }}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
 

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddIssueComponent } from 'app/modules/issues/add-issue/add-issue.component';
+import { IssueDetailComponent } from 'app/modules/issues/detail/issue-detail.component';
 
 @Component({
     selector: 'app-detail',
@@ -60,6 +61,22 @@ export class DetailComponent implements OnInit {
                 projectId: this.id
             },
         }).afterClosed().subscribe(() => {
+        });
+    }
+
+    openIssueDetailDialog(id: any) {
+        console.warn(id);
+        this._dialog.open(IssueDetailComponent, {
+            width: '720px',
+            data: {
+                issueId: id,
+                sprintId: this.selectedSprintId,
+                projectId: this.id
+            }
+        }).afterClosed().subscribe(() => {
+            if (this.selectedSprintId) {
+                this.getIssueBySprintId(this.selectedSprintId);
+            }
         });
     }
 

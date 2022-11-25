@@ -150,4 +150,12 @@ export class ProjectService {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/status/get-by-sprint/' + id, { observe: 'response' })
     }
 
+    getIssue(id: any) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/' + id, { observe: 'response' })
+    }
+
+    updateIssue(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/update', data, { observe: 'response' })
+    }
+
 }

@@ -8,20 +8,20 @@
         </button>
     </div>
     <!-- Main -->
-    <div class="flex-auto p-6">
+    <div class="flex-auto p-6 max-h-180 overflow-y-scroll">
 
         <!-- CONTENT GOES HERE -->
         <div class="border-gray-300 rounded-2xl">
             <div class="flex bg-card">
                 <div class="grid grid-cols-2 gap-3 w-full">
 
-                    <div class="p-5">
+                    <div *ngIf="issue" class="p-5">
                         <form [formGroup]="editForm">
                             <!-- Title -->
                             <div class="mb-6">
                                 <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
                                     <mat-label>Title</mat-label>
-                                    <textarea matInput [formControlName]="'title'" [spellcheck]="false"
+                                    <textarea matInput [formControlName]="'issueName'" [spellcheck]="false"
                                         matTextareaAutosize #titleField></textarea>
                                 </mat-form-field>
                             </div>
@@ -29,33 +29,56 @@
                                 <div class="grid grid-cols-2 gap-3">
                                     <!-- Priority -->
                                     <div class="col-span-1">
-                                        <div class="font-medium">Priority</div>
-                                        <div
-                                            class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer w-full text-green-800 bg-green-200 dark:text-green-100 dark:bg-green-500">
-                                            <!-- High -->
-                                            <mat-icon class="icon-size-4 text-current"
-                                                [svgIcon]="'heroicons_solid:arrow-narrow-up'">
+                                        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full"
+                                            *ngIf="issue.priority">
+                                            <mat-label>Priority</mat-label>
+                                            <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'"
+                                                matPrefix>
                                             </mat-icon>
-                                            <span class="ml-2 mr-1 text-md font-medium">High</span>
-                                        </div>
+                                            <mat-select (valueChange)="changeValue($event)"
+                                                [(value)]="issue.priority!.id">
+                                                <mat-option *ngFor="let priority of priorities" [value]="priority.id">{{
+                                                    priority.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
                                     </div>
 
                                     <!-- Due date -->
                                     <div class="col-span-1">
-                                        <div class="font-medium">Due date</div>
-                                        <div
-                                            class="relative flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer w-full text-red-800 bg-red-200 dark:text-red-100 dark:bg-red-500">
-                                            <mat-icon class="icon-size-5 text-current"
-                                                [svgIcon]="'heroicons_solid:calendar'">
+                                        <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full"
+                                            *ngIf="issue.type">
+                                            <mat-label>Type</mat-label>
+                                            <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'"
+                                                matPrefix>
                                             </mat-icon>
-                                            <span class="ml-2 text-md font-medium">
-                                                <ng-container>12/12/2022</ng-container>
-                                            </span>
-                                        </div>
+                                            <mat-select (valueChange)="typeChangeValue($event)"
+                                                [(value)]="issue.type.id">
+                                                <mat-option *ngFor="let type of types" [value]="type.id">{{
+                                                    type.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
                                     </div>
                                 </div>
 
                             </div>
+
+                            <div class="mb-6">
+                                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full"
+                                    *ngIf="issue.status">
+                                    <mat-label>Status</mat-label>
+                                    <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'"
+                                        matPrefix>
+                                    </mat-icon>
+                                    <mat-select (valueChange)="statusChangeValue($event)" [(value)]="issue.status.id">
+                                        <mat-option *ngFor="let status of statuses" [value]="status.id">{{
+                                            status.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
                             <div class="mb-6">
                                 <div class="font-medium">Assign to</div>
                                 <div
@@ -71,17 +94,22 @@
                                                 d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                                                 clip-rule="evenodd"></path>
                                         </svg>
-                                    </mat-icon><span class="ml-2 text-md font-medium">Not
-                                        assign</span>
+                                    </mat-icon><span *ngIf="issue.assigner"
+                                        class="ml-2 text-md font-medium">{{issue.assigner!.fullname}}</span>
                                 </div>
                             </div>
                             <div class="mb-6">
                                 <div class="font-medium">Tags</div>
-                                <div
-                                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
-                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
-                                    </mat-icon>
-                                    <span class="ml-1.5 text-md font-medium whitespace-nowrap">Add</span>
+                                <div class="flex gap-2">
+                                    <div *ngFor="let tag of issue.tag">
+                                        <div
+                                            class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:tag'">
+                                            </mat-icon>
+                                            <span
+                                                class="ml-1.5 text-md font-medium whitespace-nowrap">{{tag.name}}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -116,7 +144,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <button class="w-full" mat-flat-button [color]="'primary'">
+                            <button class="w-full" mat-flat-button [color]="'primary'" (click)="updateIssue()">
                                 <span>Save</span>
                             </button>
 
@@ -136,8 +164,7 @@
                                             <span class="ml-2 text-xs font-normal text-gray-500">2 weeks ago</span>
                                         </div>
                                         <div class="flex-1 px-2 ml-2 font-medium leading-loose text-gray-600">
-                                            Wow!!! how you did you
-                                            create this?
+                                            Wow!!! how you did you create this?
                                         </div>
                                         <button class="inline-flex items-center px-1 pt-2 ml-1 flex-column">
                                             <svg class="w-5 h-5 ml-2 text-gray-600 cursor-pointer fill-current hover:text-gray-900"

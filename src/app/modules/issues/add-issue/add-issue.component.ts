@@ -16,17 +16,17 @@ export class AddIssueComponent implements OnInit {
     members: any = [];
     types: any = [];
     tags: any = [];
+    statuses: any = [];
     selectedTags: any = [];
-    selectedSprint: any = {};
+    selectedSprintId: number;
     /**
      * Constructor
      */
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private _formBuilder: UntypedFormBuilder,
         public dialogRef: MatDialogRef<AddIssueComponent>,
+        private _formBuilder: UntypedFormBuilder,
         private _projectService: ProjectService
-
     ) {
     }
 
@@ -35,6 +35,7 @@ export class AddIssueComponent implements OnInit {
         this.getProjectMembers();
         this.getTypeByProjectId();
         this.getTagsByProjecId();
+        this.getStatuses();
         this.createForm = this._formBuilder.group({
             name: [''],
             createdDate: [''],
@@ -44,9 +45,9 @@ export class AddIssueComponent implements OnInit {
             creatorId: [2],
             typeId: [1],
             priorityId: ['', Validators.required],
-            statusId: [3, Validators.required],
+            statusId: ['', Validators.required],
             asignerId: ['', Validators.required],
-            tagId: [1, Validators.required],
+            tagIds: [[], Validators.required],
             sprintId: ['', Validators.required],
             description: [''],
         })
@@ -63,7 +64,9 @@ export class AddIssueComponent implements OnInit {
 
     getPriorities() {
         this._projectService.getPriorityByProjectId(this.data.project.projectId).subscribe(result => {
-            this.priorities = result.body
+            this.priorities = result.body;
+            console.log(result.body);
+
         })
     }
 
@@ -81,7 +84,17 @@ export class AddIssueComponent implements OnInit {
 
     changeTagValue(event: any) {
         this.selectedTags = event;
-        this.createForm.controls['tagId'].setValue(this.selectedTags[0].id);
+        this.createForm.controls['tagIds'].setValue(this.selectedTags);
+    }
+
+    getStatuses() {
+        this._projectService.getSprintStatus(this.data.sprintId).subscribe(result => {
+            this.statuses = result.body
+        })
+    }
+
+    changeStatusValue(event: any) {
+        this.createForm.controls['statusId'].setValue(event.id);
     }
 
     getProjectMembers() {
