@@ -99,7 +99,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-6" *ngIf="selectedSprintId">
                         <mat-form-field class="mb-0 w-full">
                             <mat-label>Status</mat-label>
                             <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>

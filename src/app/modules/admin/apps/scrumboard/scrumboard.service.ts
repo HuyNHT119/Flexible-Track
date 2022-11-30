@@ -1,7 +1,8 @@
+import { Issue, Status } from './flex-track.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
-import { Board, Card, Label, List } from 'app/modules/scrumboard/scrumboard.models';
+import { Board, Card, Label, List } from './scrumboard.models';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,12 @@ export class ScrumboardService {
     private _board: BehaviorSubject<Board | null>;
     private _boards: BehaviorSubject<Board[] | null>;
     private _card: BehaviorSubject<Card | null>;
+
+    private _project: BehaviorSubject<any | null>;
+    private _projects: BehaviorSubject<any[] | null>;
+    private _statuses: BehaviorSubject<Status[] | null>;
+    private _status: BehaviorSubject<Status | null>;
+    private _issue: BehaviorSubject<Issue | null>;
 
     /**
      * Constructor
@@ -22,6 +29,12 @@ export class ScrumboardService {
         this._board = new BehaviorSubject(null);
         this._boards = new BehaviorSubject(null);
         this._card = new BehaviorSubject(null);
+
+        this._project = new BehaviorSubject(null);
+        this._projects = new BehaviorSubject(null);
+        this._statuses = new BehaviorSubject(null);
+        this._status = new BehaviorSubject(null);
+        this._issue = new BehaviorSubject(null);
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -35,11 +48,35 @@ export class ScrumboardService {
         return this._board.asObservable();
     }
 
+    get status$(): Observable<Status> {
+        return this._status.asObservable();
+    }
+
     /**
      * Getter for boards
      */
     get boards$(): Observable<Board[]> {
         return this._boards.asObservable();
+    }
+
+    /**
+     * Getter for card
+     */
+
+    get project$(): Observable<any> {
+        return this._project.asObservable();
+    }
+
+    get projects$(): Observable<any[]> {
+        return this._projects.asObservable();
+    }
+
+    get issue$(): Observable<Issue> {
+        return this._issue.asObservable();
+    }
+
+    get statuses$(): Observable<Status[]> {
+        return this._statuses.asObservable();
     }
 
     /**
@@ -63,6 +100,78 @@ export class ScrumboardService {
         );
     }
 
+    getProjects(): Observable<any> {
+        var params = {
+            pageNumber: 0,
+            pageSize: 10,
+            userId: 2,
+            search: ''
+        }
+        return this._httpClient.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', params).pipe(
+            tap(response => {
+                console.log(response);
+                this._projects.next(response.content)
+            })
+        );
+    }
+
+    getProject(id: string): Observable<any> {
+        return this._httpClient.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getById/' + id).pipe(
+            tap(project => {
+                console.log(project);
+                this._project.next(project)
+            })
+        );
+    }
+
+    getStatuses(id: any): Observable<Status[]> {
+        return this._httpClient.get<Status[]>('http://103.160.2.51:8080/flexibletrack/api/v1/status/get-by-sprint/' + id).pipe(
+            map(response => response.map(item => new Status(item))),
+            tap(statuses => {
+                console.log(id);
+                console.log(statuses);
+                this._statuses.next(statuses)
+            })
+        );
+    }
+
+    getStatus(id: string): Observable<Status> {
+        return this._httpClient.get<Status>('http://103.160.2.51:8080/flexibletrack/api/v1/status/', { params: { id } }).pipe(
+            map(response => new Status(response)),
+            tap(status => {
+                this._status.next(status)
+            })
+        );
+    }
+
+    updateIssue(issue: any) {
+        return this.status$.pipe(
+            take(1),
+            switchMap(board => this._httpClient.post<Issue>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/updateStatus', issue[0]).pipe(
+                map((updatedCard) => {
+
+                    // Find the card and update it
+                    // board.issue.forEach((listItem) => {
+                    //     listItem.cards.forEach((cardItem, index, array) => {
+                    //         if (cardItem.id === id) {
+                    //             array[index] = updatedCard;
+                    //         }
+                    //     });
+                    // });
+
+                    // Update the board
+                    this._status.next(board);
+
+                    // Update the card
+                    this._issue.next(updatedCard);
+
+                    // Return the updated card
+                    return updatedCard;
+                })
+            ))
+        );
+    }
+
     /**
      * Get board
      *
@@ -71,7 +180,9 @@ export class ScrumboardService {
     getBoard(id: string): Observable<Board> {
         return this._httpClient.get<Board>('api/apps/scrumboard/board', { params: { id } }).pipe(
             map(response => new Board(response)),
-            tap(board => this._board.next(board))
+            tap(board => {
+                this._board.next(board)
+            })
         );
     }
 
@@ -270,6 +381,10 @@ export class ScrumboardService {
                 this._board.next(board);
             })
         );
+    }
+
+    getBacklogIssues(id: any) {
+        return this._httpClient.get<any[]>('http://103.160.2.51:8080/flexibletrack/api/v1/backlogs/getAllIssue/' + id, { observe: 'response' });
     }
 
     /**

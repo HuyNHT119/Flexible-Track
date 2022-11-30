@@ -12,14 +12,14 @@ import { InitialDataResolver } from 'app/app.resolvers';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'
-    { path: '', pathMatch: 'full', redirectTo: 'boards' },
+    { path: '', pathMatch: 'full', redirectTo: 'apps/scrumboard' },
 
     // Redirect signed in user to the '/example'
     //
     // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'boards' },
+    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'apps/scrumboard' },
 
     // Auth routes for guests
     {
@@ -121,9 +121,9 @@ export const appRoutes: Route[] = [
             },
         ]
     },
-    // Board routes
+    // Admin routes
     {
-        path: 'boards',
+        path: '',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: LayoutComponent,
@@ -131,7 +131,7 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
-            { path: '', loadChildren: () => import('app/modules/scrumboard/scrumboard.module').then(m => m.ScrumboardModule) },
+            { path: 'apps/scrumboard', loadChildren: () => import('app/modules/admin/apps/scrumboard/scrumboard.module').then(m => m.ScrumboardModule) },
         ]
     }
 ];

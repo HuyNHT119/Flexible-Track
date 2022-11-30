@@ -5,16 +5,17 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { debounceTime, Subject, takeUntil, tap } from 'rxjs';
 import { assign } from 'lodash-es';
 import { DateTime } from 'luxon';
-import { ScrumboardService } from 'app/modules/scrumboard/scrumboard.service';
-import { Board, Card, Label } from 'app/modules/scrumboard/scrumboard.models';
+import { ScrumboardService } from 'app/modules/admin/apps/scrumboard/scrumboard.service';
+import { Board, Card, Label } from 'app/modules/admin/apps/scrumboard/scrumboard.models';
 
 @Component({
-    selector: 'scrumboard-card-details',
-    templateUrl: './details.component.html',
-    encapsulation: ViewEncapsulation.None,
+    selector       : 'scrumboard-card-details',
+    templateUrl    : './details.component.html',
+    encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
+export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy
+{
     @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
     board: Board;
     card: Card;
@@ -33,7 +34,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _formBuilder: UntypedFormBuilder,
         private _scrumboardService: ScrumboardService
-    ) {
+    )
+    {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -43,7 +45,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
     /**
      * On init
      */
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         // Get the board
         this._scrumboardService.board$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -65,20 +68,20 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
 
         // Prepare the card form
         this.cardForm = this._formBuilder.group({
-            id: [''],
-            title: ['', Validators.required],
+            id         : [''],
+            title      : ['', Validators.required],
             description: [''],
-            labels: [[]],
-            dueDate: [null]
+            labels     : [[]],
+            dueDate    : [null]
         });
 
         // Fill the form
         this.cardForm.setValue({
-            id: this.card.id,
-            title: this.card.title,
+            id         : this.card.id,
+            title      : this.card.title,
             description: this.card.description,
-            labels: this.card.labels,
-            dueDate: this.card.dueDate
+            labels     : this.card.labels,
+            dueDate    : this.card.dueDate
         });
 
         // Update card when there is a value change on the card form
@@ -105,7 +108,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
     /**
      * On destroy
      */
-    ngOnDestroy(): void {
+    ngOnDestroy(): void
+    {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
@@ -120,7 +124,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      *
      * @param label
      */
-    hasLabel(label: Label): boolean {
+    hasLabel(label: Label): boolean
+    {
         return !!this.card.labels.find(cardLabel => cardLabel.id === label.id);
     }
 
@@ -129,7 +134,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      *
      * @param event
      */
-    filterLabels(event): void {
+    filterLabels(event): void
+    {
         // Get the value
         const value = event.target.value.toLowerCase();
 
@@ -142,14 +148,17 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      *
      * @param event
      */
-    filterLabelsInputKeyDown(event): void {
+    filterLabelsInputKeyDown(event): void
+    {
         // Return if the pressed key is not 'Enter'
-        if (event.key !== 'Enter') {
+        if ( event.key !== 'Enter' )
+        {
             return;
         }
 
         // If there is no label available...
-        if (this.filteredLabels.length === 0) {
+        if ( this.filteredLabels.length === 0 )
+        {
             // Return
             return;
         }
@@ -159,11 +168,13 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
         const isLabelApplied = this.card.labels.find(cardLabel => cardLabel.id === label.id);
 
         // If the found label is already applied to the card...
-        if (isLabelApplied) {
+        if ( isLabelApplied )
+        {
             // Remove the label from the card
             this.removeLabelFromCard(label);
         }
-        else {
+        else
+        {
             // Otherwise add the label to the card
             this.addLabelToCard(label);
         }
@@ -175,11 +186,14 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      * @param label
      * @param change
      */
-    toggleProductTag(label: Label, change: MatCheckboxChange): void {
-        if (change.checked) {
+    toggleProductTag(label: Label, change: MatCheckboxChange): void
+    {
+        if ( change.checked )
+        {
             this.addLabelToCard(label);
         }
-        else {
+        else
+        {
             this.removeLabelFromCard(label);
         }
     }
@@ -189,7 +203,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      *
      * @param label
      */
-    addLabelToCard(label: Label): void {
+    addLabelToCard(label: Label): void
+    {
         // Add the label
         this.card.labels.unshift(label);
 
@@ -205,7 +220,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      *
      * @param label
      */
-    removeLabelFromCard(label: Label): void {
+    removeLabelFromCard(label: Label): void
+    {
         // Remove the label
         this.card.labels.splice(this.card.labels.findIndex(cardLabel => cardLabel.id === label.id), 1);
 
@@ -219,7 +235,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
     /**
      * Check if the given date is overdue
      */
-    isOverdue(date: string): boolean {
+    isOverdue(date: string): boolean
+    {
         return DateTime.fromISO(date).startOf('day') < DateTime.now().startOf('day');
     }
 
@@ -229,7 +246,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      * @param index
      * @param item
      */
-    trackByFn(index: number, item: any): any {
+    trackByFn(index: number, item: any): any
+    {
         return item.id || index;
     }
 
@@ -242,7 +260,8 @@ export class ScrumboardCardDetailsComponent implements OnInit, OnDestroy {
      *
      * @param file
      */
-    private _readAsDataURL(file: File): Promise<any> {
+    private _readAsDataURL(file: File): Promise<any>
+    {
         // Return a new promise
         return new Promise((resolve, reject) => {
 

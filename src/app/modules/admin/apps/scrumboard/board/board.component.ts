@@ -1,16 +1,14 @@
-import { BacklogComponent } from './backlog/backlog.component';
-import { AddSprintComponent } from './../../sprint/add-sprint/add-sprint.component';
-import { IssueDetailComponent } from './../../issues/detail/issue-detail.component';
-import { AddIssueComponent } from './../../issues/add-issue/add-issue.component';
-import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Subject, takeUntil } from 'rxjs';
-import { DateTime } from 'luxon';
+import { MatDialog } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { ScrumboardService } from 'app/modules/scrumboard/scrumboard.service';
-import { Board, Card, List } from 'app/modules/scrumboard/scrumboard.models';
+import { Board, Card, List } from 'app/modules/admin/apps/scrumboard/scrumboard.models';
+import { ScrumboardService } from 'app/modules/admin/apps/scrumboard/scrumboard.service';
+import { DateTime } from 'luxon';
+import { Subject, takeUntil } from 'rxjs';
+import { BacklogComponent } from '../backlog/backlog.component';
+import { Issue, Status } from './../flex-track.model';
 
 @Component({
     selector: 'scrumboard-board',
@@ -22,6 +20,9 @@ import { Board, Card, List } from 'app/modules/scrumboard/scrumboard.models';
 export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     board: Board;
     listTitleForm: UntypedFormGroup;
+    statuses: Status[] = [];
+    project: any;
+    selectedSprint: any;
 
     // Private
     private readonly _positionStep: number = 65536;
@@ -33,31 +34,53 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
      * Constructor
      */
     constructor(
+        private _dialog: MatDialog,
         private _changeDetectorRef: ChangeDetectorRef,
         private _formBuilder: UntypedFormBuilder,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _scrumboardService: ScrumboardService,
-        private _dialog: MatDialog
+        private _scrumboardService: ScrumboardService
     ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
-
+    initialStatus() {
+        if (this.project.sprint.length > 0) {
+            this.selectedSprint = this.project.sprint[0];
+            this._scrumboardService.getStatuses(this.selectedSprint.sprintId).subscribe(result => {
+                console.log(result);
+            });
+        }
+    }
     /**
      * On init
      */
     ngOnInit(): void {
+        this._scrumboardService.project$.subscribe(result => {
+            this.project = result;
+        });
         // Initialize the list title form
         this.listTitleForm = this._formBuilder.group({
             title: ['']
         });
 
+        this.initialStatus();
+
+        this._scrumboardService.statuses$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((statuses: Status[]) => {
+                this.statuses = statuses;
+                console.log(this.statuses);
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            });
+
         // Get the board
         this._scrumboardService.board$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((board: Board) => {
+
                 this.board = { ...board };
 
                 // Mark for check
@@ -74,25 +97,25 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
         this._unsubscribeAll.complete();
     }
 
+    showBacklog() {
+        console.log(this.project);
+        this._dialog.open(BacklogComponent, {
+            width: '960px',
+            data: { backlogId: this.project.backlogId, sprint: this.selectedSprint }
+        }).afterClosed().subscribe(() => {
+
+        })
+    }
+
+    changeSprint(event: any) {
+        this._scrumboardService.getStatuses(event).subscribe(result => {
+            console.log(result);
+        });
+    }
+
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
-
-    openAddSprintDialog() {
-        this._dialog.open(AddSprintComponent);
-    }
-
-    openBacklogDialog() {
-        this._dialog.open(BacklogComponent);
-    }
-
-    openNewIssueDialog() {
-        this._dialog.open(AddIssueComponent);
-    }
-
-    openIssueDetailDialog() {
-        this._dialog.open(IssueDetailComponent);
-    }
 
     /**
      * Focus on the given element to start editing the list title
@@ -221,7 +244,9 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
      *
      * @param event
      */
-    cardDropped(event: CdkDragDrop<Card[]>): void {
+    cardDropped(event: CdkDragDrop<Issue[]>): void {
+        console.log('Dropped');
+
         // Move or transfer the item
         if (event.previousContainer === event.container) {
             // Move the item
@@ -232,14 +257,18 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
             transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
             // Update the card's list it
-            event.container.data[event.currentIndex].listId = event.container.id;
+            var number = Number(event.container.id);
+            console.log(number);
+            event.container.data[event.currentIndex].status.id = number;
         }
 
         // Calculate the positions
         const updated = this._calculatePositions(event);
 
         // Update the cards
-        this._scrumboardService.updateCards(updated).subscribe();
+        console.warn(updated);
+
+        this._scrumboardService.updateIssue(updated).subscribe();
     }
 
     /**
@@ -273,43 +302,13 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
      * @private
      */
     private _calculatePositions(event: CdkDragDrop<any[]>): any[] {
+        console.log("Calculate positions!");
+
         // Get the items
         let items = event.container.data;
         const currentItem = items[event.currentIndex];
-        const prevItem = items[event.currentIndex - 1] || null;
-        const nextItem = items[event.currentIndex + 1] || null;
 
-        // If the item moved to the top...
-        if (!prevItem) {
-            // If the item moved to an empty container
-            if (!nextItem) {
-                currentItem.position = this._positionStep;
-            }
-            else {
-                currentItem.position = nextItem.position / 2;
-            }
-        }
-        // If the item moved to the bottom...
-        else if (!nextItem) {
-            currentItem.position = prevItem.position + this._positionStep;
-        }
-        // If the item moved in between other items...
-        else {
-            currentItem.position = (prevItem.position + nextItem.position) / 2;
-        }
-
-        // Check if all item positions need to be updated
-        if (!Number.isInteger(currentItem.position) || currentItem.position >= this._maxPosition) {
-            // Re-calculate all orders
-            items = items.map((value, index) => {
-                value.position = (index + 1) * this._positionStep;
-                return value;
-            });
-
-            // Return items
-            return items;
-        }
-
+        console.log([currentItem]);
         // Return currentItem
         return [currentItem];
     }

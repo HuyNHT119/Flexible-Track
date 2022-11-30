@@ -22,7 +22,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
-        link: '/boards'
+        link: '/apps/scrumboard'
     },
 
 ];
@@ -47,7 +47,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
-        link: '/boards'
+        link: '/apps/scrumboard'
     },
 
 ];
@@ -72,7 +72,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
-        link: '/boards'
+        link: '/apps/scrumboard'
     },
 
 ];
@@ -97,7 +97,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         title: 'Dashboards',
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
-        link: '/boards'
+        link: '/apps/scrumboard'
     },
 
 ];

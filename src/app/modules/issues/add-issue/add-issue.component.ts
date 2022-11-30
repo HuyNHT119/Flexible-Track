@@ -43,12 +43,13 @@ export class AddIssueComponent implements OnInit {
             estimation: [0, Validators.required],
             finishedDate: [''],
             creatorId: [2],
-            typeId: [1],
+            typeId: [null],
             priorityId: ['', Validators.required],
-            statusId: ['', Validators.required],
+            statusId: [null],
             asignerId: ['', Validators.required],
             tagIds: [[], Validators.required],
-            sprintId: ['', Validators.required],
+            backlogId: [null],
+            sprintId: [null],
             description: [''],
         })
     }
@@ -56,9 +57,16 @@ export class AddIssueComponent implements OnInit {
     createIssue() {
         this.createForm.controls['sprintId'].setValue(this.data.sprintId);
         if (this.createForm.valid) {
-            this._projectService.createIssue(this.createForm.value).subscribe(result => {
-                console.log(result);
-            })
+            if (this.selectedSprintId) {
+                this._projectService.createIssue(this.createForm.value).subscribe(result => {
+                    console.log(result);
+                })
+            } else {
+                this.createForm.controls['backlogId'].setValue(this.data.project.backlogId);
+                this._projectService.createIssue(this.createForm.value).subscribe(result => {
+                    console.log(result);
+                })
+            }
         }
     }
 
@@ -66,7 +74,6 @@ export class AddIssueComponent implements OnInit {
         this._projectService.getPriorityByProjectId(this.data.project.projectId).subscribe(result => {
             this.priorities = result.body;
             console.log(result.body);
-
         })
     }
 
@@ -88,9 +95,11 @@ export class AddIssueComponent implements OnInit {
     }
 
     getStatuses() {
-        this._projectService.getSprintStatus(this.data.sprintId).subscribe(result => {
-            this.statuses = result.body
-        })
+        if (this.selectedSprintId) {
+            this._projectService.getSprintStatus(this.data.sprintId).subscribe(result => {
+                this.statuses = result.body
+            })
+        }
     }
 
     changeStatusValue(event: any) {
