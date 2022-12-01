@@ -142,6 +142,10 @@ export class ProjectService {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/priorities/create', data, { observe: 'response' })
     }
 
+    createStatus(data: any) {
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/status/create', data, { observe: 'response' })
+    }
+
     createSprintStatus(data: any) {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/status/create', data, { observe: 'response' })
     }
@@ -156,6 +160,10 @@ export class ProjectService {
 
     updateIssue(data: any) {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/update', data, { observe: 'response' })
+    }
+
+    getSprint(id: any) {
+        return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/' + id, { observe: 'response' })
     }
 
 }

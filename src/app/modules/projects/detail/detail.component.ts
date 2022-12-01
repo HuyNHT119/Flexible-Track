@@ -1,14 +1,14 @@
-import { SettingComponent } from './../settings/setting.component';
-import { AddMemberComponent } from './../add-member/add-member.component';
-import { filter } from 'rxjs';
-import { CreateSprintComponent } from './../sprint/create-sprint.component';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ProjectService } from './../project.service';
+import { CreateStatusComponent } from './../status/create-status.component';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddIssueComponent } from 'app/modules/issues/add-issue/add-issue.component';
 import { IssueDetailComponent } from 'app/modules/issues/detail/issue-detail.component';
+import { AddMemberComponent } from './../add-member/add-member.component';
+import { ProjectService } from './../project.service';
+import { SettingComponent } from './../settings/setting.component';
+import { CreateSprintComponent } from './../sprint/create-sprint.component';
 
 @Component({
     selector: 'app-detail',
@@ -21,6 +21,8 @@ export class DetailComponent implements OnInit {
     project: any = {};
     sprints: any = [];
     selectedSprintId: number;
+    selectedSprint: any = null;
+    statuses: any[] = [];
     members: any = [];
     issues: any = [];
     editForm: UntypedFormGroup;
@@ -101,6 +103,29 @@ export class DetailComponent implements OnInit {
         });
     }
 
+    openAddStatusDialog() {
+        this._dialog.open(CreateStatusComponent, {
+            width: '480px',
+            data: { sprintId: this.selectedSprint.sprintId }
+        }).afterClosed().subscribe(() => {
+            this.getSprint(this.selectedSprint.sprintId);
+        });
+    }
+
+    getSprint(id: any) {
+        this.getIssueBySprintId(id);
+        this._projectService.getSprint(id).subscribe(result => {
+            this.getSprintStatus(id);
+            this.selectedSprint = result.body;
+        });
+    }
+
+    getSprintStatus(id: any) {
+        this._projectService.getSprintStatus(id).subscribe(result => {
+            this.statuses = result.body;
+        })
+    }
+
     getProjectById() {
         this._projectService.getProject(this.id).subscribe(result => {
             this.project = result.body;
@@ -120,6 +145,7 @@ export class DetailComponent implements OnInit {
 
     getProjectSprint() {
         this._projectService.getSprints(this.id).subscribe(response => {
+            console.log(response);
             this.sprints = response.body;
         })
     }
@@ -134,6 +160,12 @@ export class DetailComponent implements OnInit {
         this._projectService.getProjectMembers(this.id).subscribe(result => {
             this.members = result.body;
         });
+    }
+
+    backlogClick() {
+        this.selectedSprintId = null;
+        this.selectedSprint = null;
+        this.issues = [];
     }
 
     updateProject() {

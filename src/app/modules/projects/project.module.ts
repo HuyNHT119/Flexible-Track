@@ -17,6 +17,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { ProjectComponent } from './project.component';
 import { SettingComponent } from './settings/setting.component';
 import { CreateSprintComponent } from './sprint/create-sprint.component';
+import { CreateStatusComponent } from './status/create-status.component';
 
 const projectRoutes: Route[] = [
     {
@@ -37,7 +38,8 @@ const projectRoutes: Route[] = [
         AddMemberComponent,
         DetailComponent,
         CreateSprintComponent,
-        SettingComponent
+        SettingComponent,
+        CreateStatusComponent
     ],
     imports: [
         RouterModule.forChild(projectRoutes),

@@ -11,13 +11,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/projects'
     },
     {
-        id: 'issues',
-        title: 'Issues',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/issues'
-    },
-    {
         id: 'board',
         title: 'Dashboards',
         type: 'basic',
@@ -34,13 +27,6 @@ export const compactNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
         link: '/projects'
-    },
-    {
-        id: 'issues',
-        title: 'Issues',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/issues'
     },
     {
         id: 'board',
@@ -61,13 +47,6 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         link: '/projects'
     },
     {
-        id: 'issues',
-        title: 'Issues',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/issues'
-    },
-    {
         id: 'board',
         title: 'Dashboards',
         type: 'basic',
@@ -84,13 +63,6 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:chart-pie',
         link: '/projects'
-    },
-    {
-        id: 'issues',
-        title: 'Issues',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-pie',
-        link: '/issues'
     },
     {
         id: 'board',

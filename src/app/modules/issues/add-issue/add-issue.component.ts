@@ -35,7 +35,6 @@ export class AddIssueComponent implements OnInit {
         this.getProjectMembers();
         this.getTypeByProjectId();
         this.getTagsByProjecId();
-        this.getStatuses();
         this.createForm = this._formBuilder.group({
             name: [''],
             createdDate: [''],
@@ -51,7 +50,9 @@ export class AddIssueComponent implements OnInit {
             backlogId: [null],
             sprintId: [null],
             description: [''],
-        })
+        });
+        this.selectedSprintId = this.data.sprintId! ?? null;
+        this.getStatuses();
     }
 
     createIssue() {
@@ -95,8 +96,12 @@ export class AddIssueComponent implements OnInit {
     }
 
     getStatuses() {
+        console.log('result');
+        console.log(this.selectedSprintId);
+
         if (this.selectedSprintId) {
             this._projectService.getSprintStatus(this.data.sprintId).subscribe(result => {
+                console.log(result);
                 this.statuses = result.body
             })
         }

@@ -103,7 +103,10 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
             width: '960px',
             data: { backlogId: this.project.backlogId, sprint: this.selectedSprint }
         }).afterClosed().subscribe(() => {
-
+            this._scrumboardService.getStatuses(this.selectedSprint.sprintId).subscribe(result => {
+                console.log(result);
+                this._changeDetectorRef.markForCheck();
+            })
         })
     }
 

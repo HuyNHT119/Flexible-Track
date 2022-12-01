@@ -40,7 +40,7 @@ export class BacklogComponent implements OnInit {
 
         var a = [];
         a.push(issue)
-        this._scrumboardService.updateIssue(a).subscribe(result => {
+        this._scrumboardService.sendToSprint(a).subscribe(result => {
             console.log(result);
         })
     }

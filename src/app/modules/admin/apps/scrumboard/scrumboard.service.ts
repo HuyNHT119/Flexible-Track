@@ -172,6 +172,34 @@ export class ScrumboardService {
         );
     }
 
+    sendToSprint(issue: any) {
+        return this.status$.pipe(
+            take(1),
+            switchMap(board => this._httpClient.post<Issue>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/fromBacklogToSprint', issue[0]).pipe(
+                map((updatedCard) => {
+
+                    // Find the card and update it
+                    // board.issue.forEach((listItem) => {
+                    //     listItem.cards.forEach((cardItem, index, array) => {
+                    //         if (cardItem.id === id) {
+                    //             array[index] = updatedCard;
+                    //         }
+                    //     });
+                    // });
+
+                    // Update the board
+                    this._status.next(board);
+
+                    // Update the card
+                    this._issue.next(updatedCard);
+
+                    // Return the updated card
+                    return updatedCard;
+                })
+            ))
+        );
+    }
+
     /**
      * Get board
      *

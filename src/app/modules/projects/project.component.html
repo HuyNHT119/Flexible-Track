@@ -68,7 +68,7 @@
                         <div class="text-lg font-medium tracking-tight leading-6 truncate">Projects</div>
                     </div>
                     <!-- Projects -->
-                    <div class="content mt-6">
+                    <div class="content mt-6 max-h-120 overflow-y-scroll">
                         <ng-container *ngIf="projects">
                             <ng-container *ngIf="projects.length > 0; else noProjects">
                                 <ng-container *ngFor="let project of projects; trackBy: trackByFn">

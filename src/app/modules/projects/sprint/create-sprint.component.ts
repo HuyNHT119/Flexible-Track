@@ -35,7 +35,6 @@ export class CreateSprintComponent implements OnInit {
             finishedDate: ['', Validators.required],
             creatorId: ['', Validators.required],
             projectId: ['', Validators.required],
-            statusList: [[], Validators.required]
         });
     }
 
@@ -48,7 +47,6 @@ export class CreateSprintComponent implements OnInit {
     createSprint() {
         this.createSprintForm.controls['creatorId'].setValue(2);
         this.createSprintForm.controls['projectId'].setValue(this.data.projectId);
-        this.createSprintForm.controls['statusList'].setValue(this.statuses);
         this._projectService.createSprint(this.createSprintForm.value).subscribe(result => {
             console.log(result);
         })
