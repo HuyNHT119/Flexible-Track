@@ -30,6 +30,16 @@ export class ProjectService {
         return this._sprint.asObservable();
     }
 
+    getIssuesyUserId() {
+        var body = {
+            pageNumber: 0,
+            pageSize: 15,
+            search: '',
+            id: 2
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByUserId', body, { observe: 'response' });
+    }
+
     getProjects() {
         var body = {
             pageNumber: 0,

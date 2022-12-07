@@ -17,7 +17,27 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/apps/scrumboard'
     },
-
+    {
+        id: 'issue',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/issues'
+    },
+    {
+        id: 'article',
+        title: 'Article',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/articles'
+    },
+    {
+        id: 'report',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/reports'
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
 
@@ -35,7 +55,27 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/apps/scrumboard'
     },
-
+    {
+        id: 'issue',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/issues'
+    },
+    {
+        id: 'article',
+        title: 'Article',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/articles'
+    },
+    {
+        id: 'report',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/reports'
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
 
@@ -53,7 +93,27 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/apps/scrumboard'
     },
-
+    {
+        id: 'issue',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/issues'
+    },
+    {
+        id: 'article',
+        title: 'Article',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/articles'
+    },
+    {
+        id: 'report',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/reports'
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
 
@@ -71,5 +131,25 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/apps/scrumboard'
     },
-
+    {
+        id: 'issue',
+        title: 'Issues',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/issues'
+    },
+    {
+        id: 'article',
+        title: 'Article',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/articles'
+    },
+    {
+        id: 'report',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/reports'
+    },
 ];

@@ -38,8 +38,9 @@ export class ScrumboardBoardsComponent implements OnInit, OnDestroy {
         this._scrumboardService.projects$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((projects: any[]) => {
-                this.projects = projects;
                 console.log(projects);
+
+                this.projects = projects;
 
 
                 // Mark for check

@@ -121,6 +121,36 @@ export const appRoutes: Route[] = [
             },
         ]
     },
+    // Report routes
+    {
+        path: 'reports',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: '', loadChildren: () => import('app/modules/report/report.module').then(m => m.ReportModule),
+            },
+        ]
+    },
+    // Article routes
+    {
+        path: 'articles',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: '', loadChildren: () => import('app/modules/article/article.module').then(m => m.ArticleModule),
+            },
+        ]
+    },
     // Admin routes
     {
         path: '',

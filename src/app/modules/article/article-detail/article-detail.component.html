@@ -1,0 +1,153 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10  overflow-scroll">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="h-100 border-gray-300 rounded-2xl">
+            <!-- Header -->
+            <div class="bg-card">
+                <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+                    <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
+                        <!-- Avatar and name -->
+                        <div class="flex flex-auto items-center min-w-0">
+                            <div class="flex-0 w-16 h-16 rounded-full overflow-hidden">
+                                <img class="w-full h-full object-cover" src="assets/images/avatars/brian-hughes.jpg">
+                            </div>
+                            <div class="flex flex-col min-w-0 ml-4">
+                                <ng-container>
+                                    <div
+                                        class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                                        Welcome-back, Phieu!</div>
+                                </ng-container>
+                                <div class="flex items-center">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
+                                    <div class="ml-1.5 leading-6 truncate text-secondary">You have 2 new messages and 15
+                                        new tasks</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
+                            <!-- <button class="bg-accent" mat-flat-button [color]="'accent'">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                                <span class="ml-2">Messages</span>
+                            </button> -->
+                            <!-- <button mat-flat-button [color]="'primary'" (click)="openAddProjectDialog()">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                                <span class="ml-2">New Project</span>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-card mt-6">
+                <div
+                    class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+                    <div class="flex-1 min-w-0">
+                        <!-- Breadcrumbs -->
+                        <div class="flex flex-wrap items-center font-medium">
+                            <div>
+                                <a class="whitespace-nowrap text-primary-500">Article</a>
+                            </div>
+                        </div>
+                        <!-- Title -->
+                        <div class="flex mt-2 items-center gap-4">
+                            <h2
+                                class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                                Article for sprint 8
+                            </h2>
+                            <p>Người tạo: <span class="text-blue-700">Nguyen Van Teo</span> </p>
+                            <p>Chỉnh sửa: <span class="text-red-700">Nguyen Van Teo</span></p>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Main -->
+                <div class="flex-auto p-6 sm:p-10">
+                    <div>
+
+                        <p>
+                            Since Fuse uses Tailwind, all color related utilities such as <code>text-red-50</code> or
+                            <code>bg-indigo-900</code>
+                            are available by default and they can be configured using Tailwind's configuration.
+                        </p>
+
+                        <p>
+                            In addition to default Tailwind colors, Fuse also provides utilities that changes depending
+                            on the selected theme.
+                            These utilities are meant to be used in places where you want to have a theme dependent
+                            colors such as buttons,
+                            backgrounds or texts.
+                        </p>
+
+                        <h2>Primary, Accent & Warn</h2>
+                        <p>
+                            Fuse provides <strong>Primary</strong>, <strong>Accent</strong> and <strong>Warn</strong>
+                            utilities to go with
+                            Angular Material theming. These utilities hold variable colors and they change depending on
+                            the selected theme color.
+                        </p>
+                        <p>
+                            Having these utilities allow you to have dynamic theming throughout your application without
+                            hard coding any colors.
+                            Each of these utilities also have a complementary <code>.text-on-XXX</code> utility to
+                            provide a contrasting text color.
+                        </p>
+                        <p>
+                            You can change the theme from the <i>Settings</i> panel to observe the primary color
+                            changing.
+                        </p>
+                        <p>
+                            These variable colors have different hue values just like a default Tailwind color palette
+                            and
+                            they are also available for other Tailwind color utilities such as <strong>border</strong>,
+                            <strong>ring</strong> and etc:
+                        </p>
+                        <p>
+                            <code>bg-primary-50</code>, <code>text-accent-900</code>, <code>text-on-warn-500</code>,
+                            <code>border-primary</code>,
+                            <code>ring-warn-600</code> ...
+                        </p>
+
+
+                        <h2>Text and Background colors</h2>
+                        <p>
+                            Fuse also provides set of utilities to have consistent text and background colors throughout
+                            your application without
+                            hard coding any colors. They also allow working with dark variant of the selected theme.
+                        </p>
+                        <p>
+                            For example, a text node with a <code>.text-secondary</code> class will have a proper
+                            lighter color compared to main text color
+                            depending on the selected scheme.
+                        </p>
+                        <p>
+                            Here's the complete list of the available text and background utilities:
+                        </p>
+                        <div class="flex my-8 space-x-16">
+                            <div class="flex flex-col space-y-4">
+                                <div><code class="text-default">.text-default</code></div>
+                                <div><code class="text-secondary">.text-secondary</code></div>
+                                <div><code class="text-hint">.text-hint</code></div>
+                                <div><code class="text-disabled">.text-disabled</code></div>
+                                <div><code class="divider">.divider</code></div>
+                            </div>
+                            <div class="flex flex-col space-y-4">
+                                <div class="py-1 px-2 rounded bg-card"><code>.bg-card</code></div>
+                                <div class="py-1 px-2 rounded bg-default"><code>.bg-default</code></div>
+                                <div class="py-1 px-2 rounded bg-dialog"><code>.bg-dialog</code></div>
+                                <div class="py-1 px-2 rounded bg-hover"><code>.bg-hover</code></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
