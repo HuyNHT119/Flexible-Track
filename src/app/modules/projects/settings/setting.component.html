@@ -28,9 +28,11 @@
 
             <div class="flex flex-wrap gap-2 items-center -m-1.5">
                 <div *ngFor="let tag of tags"
-                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                    class="flex items-center gap-3 mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
                     <mat-icon svgIcon="heroicons_solid:tag"></mat-icon>
                     <span class="ml-2 text-md font-medium">{{ tag.name }}</span>
+                    <mat-icon (click)="removeTag(tag.id)" class="text-red-600 cursor-pointer"
+                        svgIcon="heroicons_outline:x"></mat-icon>
                 </div>
             </div>
         </div>
@@ -52,9 +54,11 @@
             </div>
             <div class="flex flex-wrap gap-2 items-center -m-1.5">
                 <div *ngFor="let priority of priorities"
-                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                    class="flex items-center gap-3 mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
                     <mat-icon svgIcon="heroicons_solid:tag"></mat-icon>
                     <span class="ml-2 text-md font-medium">{{ priority.name }}</span>
+                    <mat-icon (click)="removePriority(priority.id)" class="text-red-600 cursor-pointer"
+                        svgIcon="heroicons_outline:x"></mat-icon>
                 </div>
             </div>
         </div>
@@ -76,9 +80,11 @@
             </div>
             <div class="flex flex-wrap gap-2 items-center -m-1.5">
                 <div *ngFor="let type of types"
-                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                    class="flex items-center gap-3 mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
                     <mat-icon svgIcon="heroicons_solid:tag"></mat-icon>
                     <span class="ml-2 text-md font-medium">{{ type.name }}</span>
+                    <mat-icon (click)="removeType(type.id)" class="text-red-600 cursor-pointer"
+                        svgIcon="heroicons_outline:x"></mat-icon>
                 </div>
             </div>
         </div>

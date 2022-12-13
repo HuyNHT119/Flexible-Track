@@ -20,11 +20,11 @@
                                         class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                                         Welcome-back, Phieu!</div>
                                 </ng-container>
-                                <div class="flex items-center">
+                                <!-- <div class="flex items-center">
                                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
                                     <div class="ml-1.5 leading-6 truncate text-secondary">You have 2 new messages and 15
                                         new tasks</div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- Actions -->
@@ -33,10 +33,10 @@
                                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:mail'"></mat-icon>
                                 <span class="ml-2">Messages</span>
                             </button> -->
-                            <button mat-flat-button [color]="'primary'">
+                            <!-- <button mat-flat-button [color]="'primary'">
                                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
                                 <span class="ml-2">New Issue</span>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -63,24 +63,22 @@
                                 <mat-label>Project</mat-label>
                                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
                                 </mat-icon>
-                                <mat-select [(value)]="projectSelected">
-                                    <mat-option [value]="'english'">None</mat-option>
-                                    <mat-option [value]="'french'">French</mat-option>
-                                    <mat-option [value]="'spanish'">Spanish</mat-option>
-                                    <mat-option [value]="'german'">German</mat-option>
-                                    <mat-option [value]="'italian'">Italian</mat-option>
+                                <mat-select value="selected" placeholder="Select project"
+                                    (selectionChange)="projectChanged($event)">
+                                    <mat-option value="selected">Select project</mat-option>
+                                    <mat-option *ngFor="let project of projects" [value]="project">{{
+                                        project.projectName }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field class="fuse-mat-rounded w-full">
                                 <mat-label>Sprint</mat-label>
                                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:globe-alt'" matPrefix>
                                 </mat-icon>
-                                <mat-select [(value)]="sprintSelected">
-                                    <mat-option [value]="'english'">None</mat-option>
-                                    <mat-option [value]="'french'">French</mat-option>
-                                    <mat-option [value]="'spanish'">Spanish</mat-option>
-                                    <mat-option [value]="'german'">German</mat-option>
-                                    <mat-option [value]="'italian'">Italian</mat-option>
+                                <mat-select value="selected" placeholder="Select project"
+                                    (selectionChange)="sprintChanged($event)">
+                                    <mat-option value="selected">Select sprint</mat-option>
+                                    <mat-option *ngFor="let sprint of sprints" [value]="sprint">{{
+                                        sprint.sprintName }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -93,35 +91,36 @@
                     </div> -->
                     <!-- Issues -->
                     <div class="content mt-6 max-h-120 overflow-y-scroll">
-                        <div *ngFor="let issue of  issues">
-                            <div class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
+                        <ng-container *ngIf="issues.length > 0">
+                            <div *ngFor="let issue of  issues">
+                                <div class="flex flex-row items-center justify-between py-3 px-5 ng-star-inserted select-none bg-gray-100
                     hover:bg-gray-200 dark:bg-hover dark:hover:bg-gray-600 hover:cursor-pointer rounded mb-1"
-                                (click)="openIssueDetailDialog(issue)">
-                                <div class="flex flex-col">
-                                    <div class="flex space-x-3">
-                                        <div class="font-medium text-green-600">{{ issue.issueName }}</div>
-                                        <div class="font-medium">{{ issue.description }}</div>
-                                    </div>
-                                    <div
-                                        class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                        <div class="flex items-center ng-star-inserted">
-                                            <div class="flex space-x-3">
-                                                <div class="ml-1.5 text-md text-secondary">{{ issue.createdDate
-                                                    |
-                                                    date:
-                                                    'short' }}</div>
-                                                <div *ngIf="issue.status"
-                                                    class="flex flex-wrap items-center -m-1 ng-star-inserted">
-                                                    <div
-                                                        class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-blue-500 bg-gray-200 dark:text-blue-500 dark:bg-gray-700 ng-star-inserted">
-                                                        {{ issue.status.name }} </div>
+                                    (click)="openIssueDetailDialog(issue)">
+                                    <div class="flex flex-col">
+                                        <div class="flex space-x-3">
+                                            <div class="font-medium text-green-600">{{ issue.issueName }}</div>
+                                            <div class="font-medium">{{ issue.description }}</div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                            <div class="flex items-center ng-star-inserted">
+                                                <div class="flex space-x-3">
+                                                    <div class="ml-1.5 text-md text-secondary">{{ issue.createdDate
+                                                        |
+                                                        date:
+                                                        'short' }}</div>
+                                                    <div *ngIf="issue.status"
+                                                        class="flex flex-wrap items-center -m-1 ng-star-inserted">
+                                                        <div
+                                                            class="m-1 py-0.5 px-3 rounded-full text-sm font-medium text-blue-500 bg-gray-200 dark:text-blue-500 dark:bg-gray-700 ng-star-inserted">
+                                                            {{ issue.status.name }} </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="items-center justify-center">
+                                <!-- <div class="items-center justify-center">
                                 <div *ngIf="issue.priority" class="w-4 h-4 mr-3">
                                     <mat-icon *ngIf="issue.priority.name == 'low'"
                                         class="icon-size-4 text-green-600 dark:text-green-400"
@@ -136,8 +135,12 @@
                                         [svgIcon]="'heroicons_solid:arrow-narrow-up'" [title]="'High'">
                                     </mat-icon>
                                 </div>
+                            </div> -->
                             </div>
-                        </div>
+                        </ng-container>
+                        <ng-container *ngIf="!issues || issues.length == 0">
+                            <span>Không có issues nào được tìm thấy</span>
+                        </ng-container>
                     </div>
                 </div>
             </div>

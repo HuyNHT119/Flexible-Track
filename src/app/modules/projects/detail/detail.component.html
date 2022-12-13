@@ -60,20 +60,26 @@
 
                                 <div *ngFor="let member of members"
                                     [ngClass]="member.role == 'Owner' ? 'text-red-600' : 'text-gray-500'"
-                                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
-                                    <mat-icon role="img"
-                                        class="mat-icon notranslate icon-size-5 text-current mat-icon-no-color"
-                                        aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="user"
-                                        data-mat-icon-namespace="heroicons_solid">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                            fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet"
-                                            focusable="false">
-                                            <path fill-rule="evenodd"
-                                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                                clip-rule="evenodd">
-                                            </path>
-                                        </svg>
-                                    </mat-icon><span class="ml-2 text-md font-medium">{{ member.fullname }}</span>
+                                    class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer bg-gray-100 dark:text-gray-300 dark:bg-gray-700 justify-between">
+                                    <span class="flex gap-3 items-center">
+                                        <mat-icon role="img"
+                                            class="mat-icon notranslate icon-size-5 text-current mat-icon-no-color"
+                                            aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="user"
+                                            data-mat-icon-namespace="heroicons_solid">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                fill="currentColor" fit="" height="100%" width="100%"
+                                                preserveAspectRatio="xMidYMid meet" focusable="false">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                    clip-rule="evenodd">
+                                                </path>
+                                            </svg>
+                                        </mat-icon><span class="ml-2 text-md font-medium">{{ member.fullname }}</span>
+                                    </span>
+                                    <span class="flex">
+                                        <mat-icon (click)="removeMember(member.id)" class="text-red-600 cursor-pointer"
+                                            svgIcon="heroicons_outline:x"></mat-icon>
+                                    </span>
                                 </div>
                             </div>
                             <div class="flex flex-col flex-auto rounded-2xl p-6">
@@ -173,8 +179,12 @@
                             <span>Status</span>
                             <div class="flex gap-4">
                                 <div *ngFor="let status of statuses"
-                                    class="font-medium text-blue-700 bg-gray-300 px-3 py-2 rounded-full">
-                                    {{status.name}}
+                                    class="flex gap-4 item-center font-medium text-blue-700 bg-gray-300 px-3 py-2 rounded-full">
+                                    <div class="cursor-pointer">
+                                        {{status.name}}
+                                    </div>
+                                    <mat-icon (click)="removeStatus(status.id)" class="text-red-600 cursor-pointer"
+                                        svgIcon="heroicons_outline:x"></mat-icon>
                                 </div>
                                 <div class="flex font-medium bg-green-400 px-3 py-2 rounded-full cursor-pointer"
                                     (click)="openAddStatusDialog()">

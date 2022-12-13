@@ -115,10 +115,13 @@ export class ScrumboardService {
         );
     }
 
+    getIssueByIssueId(id: any) {
+        return this._httpClient.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/' + id, { observe: 'response' })
+    }
+
     getProject(id: string): Observable<any> {
         return this._httpClient.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getById/' + id).pipe(
             tap(project => {
-                console.log(project);
                 this._project.next(project)
             })
         );
@@ -128,8 +131,6 @@ export class ScrumboardService {
         return this._httpClient.get<Status[]>('http://103.160.2.51:8080/flexibletrack/api/v1/status/get-by-sprint/' + id).pipe(
             map(response => response.map(item => new Status(item))),
             tap(statuses => {
-                console.log(id);
-                console.log(statuses);
                 this._statuses.next(statuses)
             })
         );

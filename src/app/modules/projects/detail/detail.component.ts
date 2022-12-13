@@ -9,6 +9,7 @@ import { AddMemberComponent } from './../add-member/add-member.component';
 import { ProjectService } from './../project.service';
 import { SettingComponent } from './../settings/setting.component';
 import { CreateSprintComponent } from './../sprint/create-sprint.component';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
 
 @Component({
     selector: 'app-detail',
@@ -26,6 +27,7 @@ export class DetailComponent implements OnInit {
     members: any = [];
     issues: any = [];
     editForm: UntypedFormGroup;
+    configForm: UntypedFormGroup;
 
     constructor(
         private _formBuilder: UntypedFormBuilder,
@@ -34,6 +36,7 @@ export class DetailComponent implements OnInit {
         private _route: ActivatedRoute,
         private _dialog: MatDialog,
         public createSprintDialogRef: MatDialogRef<CreateSprintComponent>,
+        private _fuseConfirmationService: FuseConfirmationService
     ) { }
 
     ngOnInit() {
@@ -42,6 +45,7 @@ export class DetailComponent implements OnInit {
         this.getProjectById();
         this.getProjectSprint();
         this.getProjectMembers();
+        this.builderConfirmForm();
     }
 
     openCreateSprintDialog() {
@@ -183,11 +187,63 @@ export class DetailComponent implements OnInit {
 
     getIssueBySprintId(id: number) {
         this.selectedSprintId = id;
-        console.log(this.selectedSprintId);
         this._projectService.getIssueBySprintId(id).subscribe(result => {
-            console.log(result);
             this.issues = result.body.content
         })
+    }
+
+    builderConfirmForm() {
+        // Build the config form
+        this.configForm = this._formBuilder.group({
+            title: 'Remove',
+            message: 'Are you sure you want to remove permanently? <span class="font-medium">This action cannot be undone!</span>',
+            icon: this._formBuilder.group({
+                show: true,
+                name: 'heroicons_outline:exclamation',
+                color: 'warn'
+            }),
+            actions: this._formBuilder.group({
+                confirm: this._formBuilder.group({
+                    show: true,
+                    label: 'Remove',
+                    color: 'warn'
+                }),
+                cancel: this._formBuilder.group({
+                    show: true,
+                    label: 'Cancel'
+                })
+            }),
+            dismissible: true
+        });
+    }
+
+    removeMember(id: any) {
+        // Open the dialog and save the reference of it
+        const dialogRef = this._fuseConfirmationService.open(this.configForm.value);
+
+        // Subscribe to afterClosed from the dialog reference
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result == 'confirmed') {
+                console.log(this.id + 'aaaaaa' + id);
+                this._projectService.removeMember(this.id, id).subscribe(result => {
+                    this.getProjectMembers();
+                })
+            }
+        });
+    }
+
+    removeStatus(id: any) {
+        // Open the dialog and save the reference of it
+        const dialogRef = this._fuseConfirmationService.open(this.configForm.value);
+
+        // Subscribe to afterClosed from the dialog reference
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result == 'confirmed') {
+                this._projectService.removeStatus(id).subscribe(result => {
+                    this.getSprintStatus(this.selectedSprint.sprintId);
+                })
+            }
+        });
     }
 
 }

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { Board, Card, List } from 'app/modules/admin/apps/scrumboard/scrumboard.models';
 import { ScrumboardService } from 'app/modules/admin/apps/scrumboard/scrumboard.service';
+import { IssueDetailComponent } from 'app/modules/issues/detail/issue-detail.component';
 import { DateTime } from 'luxon';
 import { Subject, takeUntil } from 'rxjs';
 import { BacklogComponent } from '../backlog/backlog.component';
@@ -113,6 +114,20 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     changeSprint(event: any) {
         this._scrumboardService.getStatuses(event).subscribe(result => {
             console.log(result);
+        });
+    }
+
+    openIssueDetailDialog(issue: any) {
+
+        this._dialog.open(IssueDetailComponent, {
+            width: '720px',
+            data: {
+                issueId: issue.issueId,
+                sprintId: issue.sprintId,
+                projectId: issue.projectId
+            }
+        }).afterClosed().subscribe(() => {
+            // this.getIssuesByUserId();
         });
     }
 

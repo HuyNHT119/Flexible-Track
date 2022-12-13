@@ -38,12 +38,11 @@ export class AddMemberComponent implements OnInit {
         } else {
             this.members = [];
         }
-
     }
 
     addMember(memberId: number) {
         this._projectService.inviteMember(this.data.projectId, memberId).subscribe(result => {
-            console.log(result);
+            this.searchMembers();
         })
     }
 

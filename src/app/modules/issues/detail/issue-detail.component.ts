@@ -15,6 +15,8 @@ export class IssueDetailComponent implements OnInit {
     tagsId: any[] = [];
     statuses: any[] = [];
     priorities: any[] = [];
+    assigners: any[] = [];
+
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<IssueDetailComponent>,
@@ -23,11 +25,11 @@ export class IssueDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        console.log(this.data);
         this.getIssueById();
         this.getPriorities();
         this.getTypes();
         this.getStatuses();
+        this.getProjectMember();
         this.editForm = this._formBuilder.group({
             issueId: [''],
             issueName: [''],
@@ -49,7 +51,6 @@ export class IssueDetailComponent implements OnInit {
     getIssueById() {
         this._projectService.getIssue(this.data.issueId).subscribe(result => {
             this.issue = result.body;
-            console.warn(this.issue);
             this.editForm.patchValue(this.issue);
             this.editForm.controls['statusId'].setValue(this.issue.status.id);
             this.editForm.controls['typeId'].setValue(this.issue.type.id);
@@ -66,8 +67,6 @@ export class IssueDetailComponent implements OnInit {
     getPriorities() {
         this._projectService.getPriorityByProjectId(this.data.projectId).subscribe(result => {
             this.priorities = result.body;
-            console.log(result.body);
-
         })
     }
 
@@ -80,6 +79,13 @@ export class IssueDetailComponent implements OnInit {
     getStatuses() {
         this._projectService.getSprintStatus(this.data.sprintId).subscribe(result => {
             this.statuses = result.body;
+        })
+    }
+
+    getProjectMember() {
+        this._projectService.getProjectMembers(this.data.projectId).subscribe(result => {
+            console.log(result);
+            this.assigners = result.body;
         })
     }
 
@@ -96,10 +102,12 @@ export class IssueDetailComponent implements OnInit {
         this.editForm.controls['statusId'].setValue(event);
     }
 
+    assignChangeValue(event: any) {
+        this.editForm.controls['asignerId'].setValue(event);
+    }
+
     updateIssue() {
-        console.log(this.editForm.value);
         this._projectService.updateIssue(this.editForm.value).subscribe(result => {
-            console.log(result);
         })
     }
 }

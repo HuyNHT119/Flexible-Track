@@ -1,3 +1,4 @@
+import { ProjectService } from 'app/modules/projects/project.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ArticleComponent implements OnInit {
-    constructor() { }
 
-    ngOnInit() { }
+    projects: any[] = [];
+    constructor(
+        private _projectService: ProjectService
+    ) { }
+
+    ngOnInit() {
+        this.getProjectByUserId();
+    }
+
+    getProjectByUserId() {
+        this._projectService.getProjects(2).subscribe(result => {
+            this.projects = result.body.content;
+        })
+    }
+
+    projectChanged(event: any) {
+        this._projectService.getIssueByProjectId(event.value.projectId).subscribe(result => {
+        })
+    }
 }

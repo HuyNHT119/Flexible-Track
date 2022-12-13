@@ -40,12 +40,12 @@ export class ProjectService {
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByUserId', body, { observe: 'response' });
     }
 
-    getProjects() {
+    getProjects(id?: any) {
         var body = {
             pageNumber: 0,
             pageSize: 15,
             search: '',
-            userId: 2
+            userId: id ?? 2
         }
         return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/getAllProject', body, { observe: 'response' });
     }
@@ -66,6 +66,14 @@ export class ProjectService {
 
     getSprints(id: number) {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/getAllByProjectId/' + id, { observe: 'response' })
+    }
+
+    removeMember(projectId: any, userId: any) {
+        var data = {
+            projectId: projectId,
+            userId: userId
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/projects/removeMember', data, { observe: 'response' })
     }
 
     getIssues(id: number, search?: string) {
@@ -176,4 +184,29 @@ export class ProjectService {
         return this._http.get<any>('http://103.160.2.51:8080/flexibletrack/api/v1/sprint/' + id, { observe: 'response' })
     }
 
+    removeStatus(id: any) {
+        return this._http.delete<any>('http://103.160.2.51:8080/flexibletrack/api/v1/status/delete/' + id, { observe: 'response' })
+    }
+
+    removePriority(id: any) {
+        return this._http.delete<any>('http://103.160.2.51:8080/flexibletrack/api/v1/priorities/delete/' + id, { observe: 'response' })
+    }
+
+    removeTag(id: any) {
+        return this._http.delete<any>('http://103.160.2.51:8080/flexibletrack/api/v1/tags/delete/' + id, { observe: 'response' })
+    }
+
+    removeType(id: any) {
+        return this._http.delete<any>('http://103.160.2.51:8080/flexibletrack/api/v1/types/delete/' + id, { observe: 'response' })
+    }
+
+    getIssueByProjectId(id: any, search?: string) {
+        var data = {
+            pageNumber: 0,
+            pageSize: 15,
+            search: search ?? '',
+            id: id
+        }
+        return this._http.post<any>('http://103.160.2.51:8080/flexibletrack/api/v1/issue/getAllByProjectId/' + data.id, data, { observe: 'response' })
+    }
 }

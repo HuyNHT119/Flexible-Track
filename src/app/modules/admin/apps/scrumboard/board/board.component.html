@@ -69,8 +69,8 @@
 
                                 <!-- Card -->
                                 <ng-container *ngFor="let issue of status.issue; trackBy: trackByFn">
-                                    <a class="flex flex-col items-start mb-3 p-5 space-y-3 shadow rounded-lg overflow-hidden bg-card"
-                                        cdkDrag>
+                                    <a class="flex flex-col items-start mb-3 p-5 space-y-3 shadow rounded-lg overflow-hidden bg-card cursor-pointer"
+                                        (click)="openIssueDetailDialog(issue)" cdkDrag>
                                         <!-- Cover image -->
                                         <!-- <ng-container *ngIf="card.coverImage">
                                             <div class="-mx-5 -mt-5 mb-2">
