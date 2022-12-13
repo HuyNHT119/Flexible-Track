@@ -35,7 +35,7 @@ export class CreateStatusComponent implements OnInit {
     addStatus() {
         if (this.createStatusForm.valid) {
             this._projectService.createStatus(this.createStatusForm.value).subscribe(result => {
-                console.log(result);
+                this.dialogRef.close();
             });
         }
     }

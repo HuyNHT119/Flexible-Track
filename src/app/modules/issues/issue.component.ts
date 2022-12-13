@@ -17,8 +17,8 @@ export class IssueComponent implements OnInit {
     projects: any[] = [];
     sprints: any[] = [];
 
-    selectedProject: any = {};
-    selectedSprint: any = {};
+    selectedProject: any = null;
+    selectedSprint: any = null;
     issues: Issue[] = [];
 
     constructor(
@@ -49,12 +49,14 @@ export class IssueComponent implements OnInit {
 
     projectChanged(event: any) {
         this.selectedProject = event.value;
-        this._projectService.getSprints(event.value.projectId).subscribe(result => {
-            this.sprints = result.body;
-        })
-        this._projectService.getIssueByProjectId(event.value.projectId).subscribe(result => {
-            this.issues = result.body.content;
-        })
+        if (this.selectedProject.projectId) {
+            this._projectService.getSprints(event.value.projectId).subscribe(result => {
+                this.sprints = result.body;
+            })
+            this._projectService.getIssueByProjectId(event.value.projectId).subscribe(result => {
+                this.issues = result.body.content;
+            })
+        }
     }
 
     sprintChanged(event: any) {
@@ -62,6 +64,14 @@ export class IssueComponent implements OnInit {
         this._projectService.getIssueBySprintId(event.value.sprintId).subscribe(result => {
             this.issues = result.body.content;
         })
+    }
+
+    searchIssue(value: any) {
+        if (this.selectedSprint) {
+            this._projectService.getIssueBySprintId(this.selectedSprint.sprintId, value).subscribe(result => {
+                this.issues = result.body.content;
+            })
+        }
     }
 
     openIssueDetailDialog(issue: any) {

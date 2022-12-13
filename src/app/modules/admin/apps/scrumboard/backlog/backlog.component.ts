@@ -15,7 +15,6 @@ export class BacklogComponent implements OnInit {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private _scrumboardService: ScrumboardService,
-        private _projectService: ProjectService,
         public dialogRef: MatDialogRef<BacklogComponent>,
     ) { }
 
@@ -24,8 +23,6 @@ export class BacklogComponent implements OnInit {
     }
 
     getBacklogIssue() {
-        console.log('Get issue!!!');
-        console.log(this.data.backlogId);
         this._scrumboardService.getBacklogIssues(this.data.backlogId).subscribe(result => {
             console.log(result);
             this.issues = result.body
@@ -33,15 +30,12 @@ export class BacklogComponent implements OnInit {
     }
 
     addToSprint(issue: any) {
-        console.warn(issue);
         issue.sprintId = this.data.sprint.sprintId;
         issue.backlogId = null;
-        console.log(issue);
-
         var a = [];
         a.push(issue)
         this._scrumboardService.sendToSprint(a).subscribe(result => {
-            console.log(result);
+            this.getBacklogIssue();
         })
     }
 }

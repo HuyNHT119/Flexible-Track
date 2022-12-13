@@ -53,7 +53,8 @@
                                 [floatLabel]="'always'">
                                 <mat-icon matPrefix class="icon-size-5" [svgIcon]="'heroicons_solid:search'">
                                 </mat-icon>
-                                <input matInput [autocomplete]="'off'" [placeholder]="'Search issues'">
+                                <input matInput [autocomplete]="'off'" [placeholder]="'Search issues'"
+                                    (keyup)="searchIssue($event.target.value)">
                             </mat-form-field>
                         </div>
 

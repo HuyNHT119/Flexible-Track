@@ -79,6 +79,14 @@
                                         </ng-container> -->
                                         <!-- Title -->
                                         <div class="text-lg font-medium leading-5">{{issue.issueName}}</div>
+                                        <div class="flex gap-2 w-full">
+                                            <div *ngFor="let tag of issue.tag"
+                                                class="flex items-center mt-1 px-3 leading-7 rounded-full text-gray-500 bg-gray-100 dark:text-gray-300 dark:bg-gray-700">
+                                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:tag'">
+                                                </mat-icon>
+                                                <span class="ml-1.5 text-sm whitespace-nowrap">{{tag.name}}</span>
+                                            </div>
+                                        </div>
                                         <!-- Labels -->
                                         <!-- <ng-container *ngIf="card.labels.length">
                                             <div>
